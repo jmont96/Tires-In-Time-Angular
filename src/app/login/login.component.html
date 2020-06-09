@@ -1,0 +1,41 @@
+<div class="form-container-centered">
+    
+
+    <img src="assets/tit-logo.png" width="200px">
+
+<h2>Login</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <p>
+            <mat-form-field appearance="outline">
+                <mat-label>Email Address</mat-label>
+                <input matInput placeholder="Email" formControlName="email"
+                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                <mat-icon matSuffix>mail</mat-icon>
+                <mat-hint *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                    <div *ngIf="f.email.errors.required">Email is required</div>
+                </mat-hint>
+            </mat-form-field>
+
+
+        </p>
+        <p>
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput placeholder="Password" formControlName="password" type='password'
+                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                <mat-icon matSuffix>vpn_key</mat-icon>
+                <mat-hint *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                    <div *ngIf="f.password.errors.required">Password is required</div>
+                </mat-hint>
+            </mat-form-field>
+
+
+        </p>
+        <p>
+
+            <button mat-button type="submit" color="primary" [disabled]="loading">Sign In</button>
+        </p>
+
+        <button mat-button routerLink="/register" class="btn btn-link">I need an account</button>
+    </form>
+</div>

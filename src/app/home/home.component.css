@@ -1,0 +1,46 @@
+:root {
+    --custom-box-shadow1: 0 12px 38px rgba(0, 0, 0, 0.05), 0 20px 38px rgba(0, 0, 0, 0.05);
+    --custom-box-shadow2: 0 12px 38px rgba(0, 0, 0, 0.1), 0 20px 38px rgba(0, 0, 0, 0.1);
+    --custom-box-shadow-short: 0 12px 38px rgba(0, 0, 0, 0.02), 0 20px 38px rgba(0, 0, 0, 0.03);
+    --custom-box-shadow-tall: 0 12px 38px rgba(0, 0, 0, 0.3), 0 20px 38px rgba(0, 0, 0, 0.2);
+    --custom-text-dark: #071108;
+    --custom-text-light: #FFFFFF;
+    --custom-text-grey: #a6a6a6;
+    --color-primary: #a30c0c; 
+}
+
+.container-title .text {
+    font-size: 2.5vw;
+    color: var(--custom-text-dark);
+    max-width: 40%;
+    padding-top: 60px;
+}
+
+.container-title .picture {
+    font-size: 36px;
+    max-width: 50%;
+    height: 300px;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+}
+
+.tire-photo{
+    height: 700px;
+    
+}
+
+.container-title {
+    margin-top: 36px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.container-process h1 {
+    margin-top: 348px;
+    color: var(--custom-text-light);
+    font-size: 50px;
+}

@@ -19,6 +19,9 @@
       "dom"
     ]
   },
+  "paths": {
+    "@environments/*": ["src/environments/*"]
+  },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true

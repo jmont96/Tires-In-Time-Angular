@@ -1,0 +1,55 @@
+<div class="form-container-centered">
+    <h2>Register</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <p>
+            <mat-form-field appearance="outline">
+                <mat-label>First Name</mat-label>
+                <input matInput placeholder="First Name" formControlName="firstName" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }">
+                <mat-icon matSuffix>face</mat-icon>
+                
+                <mat-hint *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                    <div *ngIf="f.firstName.errors.required">First Name is required</div>
+                </mat-hint>
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field appearance="outline">
+                <mat-label>Last Name</mat-label>
+                <input matInput placeholder="Last Name" formControlName="lastName" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
+                <mat-icon matSuffix>group</mat-icon>
+                <mat-hint *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                    <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+                </mat-hint>
+            </mat-form-field>
+        </p>
+        <mat-form-field appearance="outline">
+            <mat-label>Email Address</mat-label>
+            <input matInput placeholder="Email" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+            <mat-icon matSuffix>mail</mat-icon>
+            <mat-hint *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                <div *ngIf="f.email.errors.required">Email is required</div>
+                <div *ngIf="f.email.errors.email">Email is not valid</div>
+            </mat-hint>
+        </mat-form-field>
+        <p>
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput placeholder="Password" formControlName="password" type='password'
+                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                <mat-icon matSuffix>vpn_key</mat-icon>
+                <mat-hint *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                    <div *ngIf="f.password.errors.required">Password is required</div>
+                    <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                </mat-hint>
+            </mat-form-field>
+        </p>
+        <p>
+            
+            <button mat-button color="primary" [disabled]="loading" >Register</button>
+        </p>
+        
+        <button mat-button routerLink="/login" class="btn btn-link">I already have an account</button>
+    </form>
+</div>
+
+

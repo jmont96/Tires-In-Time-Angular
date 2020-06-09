@@ -1,0 +1,78 @@
+<h2 mat-dialog-title>Payment</h2>
+
+<mat-dialog-content class="mat-typography" >
+
+
+    <form style="width: 400px" novalidate (ngSubmit)="buy()" [formGroup]="stripeTest">
+
+        <div class="separator">Cart</div>
+        <br>
+
+        <p>Product 1 <span class="price">$15</span></p>
+        <p>Product 2 <span class="price">$5</span></p>
+        <p>Product 3 <span class="price">$8</span></p>
+        <p>Product 4 <span class="price">$2</span></p>
+        <p style="font-weight: 900">Total <span class="price-total">$2</span></p>
+        <br>
+        <br>
+
+        <div class="separator">Card Payment</div>
+
+        <br><br>
+        <p>
+            <mat-form-field appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput placeholder="Jane Doe" formControlName="name">
+                <mat-icon matSuffix>face</mat-icon>
+            </mat-form-field>
+        </p>
+
+        <p>
+            <mat-form-field appearance="outline">
+                <mat-label>Address Line 1</mat-label>
+                <input matInput placeholder="Jane Doe" formControlName="address_line1">
+                <mat-icon matSuffix>face</mat-icon>
+            </mat-form-field>
+        </p>
+
+        <p>
+            <mat-form-field appearance="outline">
+                <mat-label>Address Line 2</mat-label>
+                <input matInput placeholder="Jane Doe" formControlName="address_line2">
+                <mat-icon matSuffix>face</mat-icon>
+            </mat-form-field>
+        </p>
+
+        <p>
+            <mat-form-field appearance="outline">
+                <mat-label>City</mat-label>
+                <input matInput placeholder="Jane Doe" formControlName="address_city">
+                <mat-icon matSuffix>face</mat-icon>
+            </mat-form-field>
+        </p>
+
+        <p>
+            <mat-form-field appearance="outline">
+                <mat-label>State</mat-label>
+                <input matInput placeholder="Jane Doe" formControlName="address_state">
+                <mat-icon matSuffix>face</mat-icon>
+            </mat-form-field>
+        </p>
+
+        <p>
+            <mat-form-field appearance="outline">
+                <mat-label>Country</mat-label>
+                <input matInput placeholder="Jane Doe" formControlName="address_country">
+                <mat-icon matSuffix>face</mat-icon>
+            </mat-form-field>
+        </p>
+
+        <div style="margin-bottom: 36px" id="card-element" class="field"></div>
+        <button style="width: 100%;" color="primary" mat-flat-button mat-dialog-close type="submit">
+            BUY
+        </button>
+    </form>
+
+
+
+</mat-dialog-content>
