@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { AuthenticationService, AlertService } from './_services';
 import { User } from './_models';
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatDialog } from '@angular/material'
+import { AuthDialogComponent } from './auth-dialog/auth-dialog.component'
+
 
 @Component({
   selector: 'app-root',
@@ -19,7 +22,8 @@ export class AppComponent {
         private router: Router,
         private authenticationService: AuthenticationService,
         private notificationService: AlertService, 
-        private snackBar: MatSnackBar
+        private snackBar: MatSnackBar,
+        public dialog: MatDialog
     ) {
         this.authenticationService.currentUser.subscribe(x => {
           this.currentUser = x
@@ -39,5 +43,18 @@ export class AppComponent {
         this.authenticationService.logout();
         this.router.navigate(['/login']);
         this.show_nav = false;
+    }
+    open_register_dialog(){
+      const authDialog = this.dialog.open(AuthDialogComponent, {
+
+      });
+      authDialog.afterClosed()
+          .subscribe((result: any) => {
+              console.log("closed");
+          });
+    }
+
+    nav_to_orders(){
+      this.router.navigate(['/view-orders', this.currentUser['user']._id])
     }
 }

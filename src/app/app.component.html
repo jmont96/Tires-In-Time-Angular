@@ -12,7 +12,26 @@
   <button mat-button routerLink="/schedule-form">Schedule an Appointment</button>
   <span class="fill-remaining-space"></span>
   <ng-template [ngIf]="show_nav">
-    <button mat-button color="primary" (click)="logout()">Logout</button>
+    <button mat-button [matMenuTriggerFor]="menu">
+      <mat-icon>expand_more</mat-icon>
+      {{ currentUser.user.email }}
+    </button>
+    <mat-menu #menu="matMenu">
+      <p mat-menu-item> Signed in as {{ currentUser.user.email}}</p>
+      <button mat-menu-item (click)="nav_to_orders()">
+        <mat-icon>shopping_cart</mat-icon>
+        <span>Orders</span>
+      </button>
+      
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Sign Out</span>
+      </button>
+    </mat-menu>
+    
+  </ng-template>
+  <ng-template [ngIf]="!show_nav">
+    <button mat-button color="primary" (click)="open_register_dialog()">Sign In</button>
   </ng-template>
 </mat-toolbar>
 

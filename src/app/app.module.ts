@@ -4,8 +4,6 @@ import { NgModule } from '@angular/core';
 import { appRoutingModule } from './app.routing';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
@@ -31,26 +29,32 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu'
 import {MatListModule, MatList} from '@angular/material/list';
 import { TireSizeDialogComponent } from './tire-size-dialog/tire-size-dialog.component';
 import { MainFormComponent } from './main-form/main-form.component';
-import { FormPageComponent } from './form-page/form-page.component';
 import { PaymentDialogComponent } from './payment-dialog/payment-dialog.component';
 import { NgxStripeModule } from 'ngx-stripe';
-
+import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
+import {MatChipsModule} from '@angular/material/chips';
+import { MatButtonToggleModule } from '@angular/material';
+import { TireInfoDialogComponent } from './tire-info-dialog/tire-info-dialog.component';
+import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
+import { UserOrdersComponent } from './user-orders/user-orders.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    RegisterComponent,
-    LoginComponent,
     AlertComponent,
     MapComponent,
     TireSizeDialogComponent,
     MainFormComponent,
-    FormPageComponent,
-    PaymentDialogComponent
+    PaymentDialogComponent,
+    AuthDialogComponent,
+    TireInfoDialogComponent,
+    OrderConfirmationComponent,
+    UserOrdersComponent
     
   ],
   imports: [
@@ -62,8 +66,10 @@ import { NgxStripeModule } from 'ngx-stripe';
     MatSliderModule,
     MatToolbarModule,
     appRoutingModule,
+    MatButtonToggleModule,
     HttpClientModule,
     MatFormFieldModule,
+    MatChipsModule,
     MatIconModule,
     MatInputModule,
     MatGridListModule,
@@ -79,6 +85,7 @@ import { NgxStripeModule } from 'ngx-stripe';
     MatNativeDateModule,
     MatSelectModule,
     MatListModule,
+    MatMenuModule,
     MatGoogleMapsAutocompleteModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDXX7daiIIHhbpdsFIxvziMRiQ9Z8yghgQ',
@@ -90,7 +97,7 @@ import { NgxStripeModule } from 'ngx-stripe';
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     MatDatepickerModule,
   ],
-  entryComponents: [TireSizeDialogComponent, PaymentDialogComponent],
+  entryComponents: [TireSizeDialogComponent, PaymentDialogComponent, AuthDialogComponent, TireInfoDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

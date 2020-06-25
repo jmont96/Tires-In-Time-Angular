@@ -1,0 +1,78 @@
+<div style="padding: 20px">
+
+    <h2 mat-dialog-title>{{tire_data.tire_data.article_desc}} <span class="fill-remaining-space"></span> <span>
+            <mat-icon>close</mat-icon>
+        </span></h2>
+
+
+    <mat-dialog-content class="mat-typography">
+
+        <div class="tire-card-content-container">
+            <div class="tire-card-contents">
+                <p> Manufacturer: <b>{{tire_data.tire_data.manufacturer}} </b> </p>
+                <p>Type: <b>{{tire_data.tire_data.type}} </b> </p>
+                <p><b>{{tire_data.tire_data.qoh}}  </b> left in stock </p>
+                <br>
+                <h2 class="text-red" style="font-size: 36px; font-weight: 800;"><span>${{tire_data.tire_data.cost}}</span></h2>
+                
+            </div>
+
+            <!-- <div class="tire-card-price">
+                <h2 class="text-red" style="font-size: 36px; font-weight: 800;"><span>${{tire_data.tire_data.cost}}</span></h2>
+                <p><b>{{tire_data.tire_data.qoh}}  </b> left in stock </p>
+            </div> -->
+        </div>
+
+        
+
+
+
+        <div class="separator">Specs</div>
+
+        <div class="tire-info-specs-container">
+            <div class="tire-info-spec-div">
+                <img height="200px;" width="200px" src="assets/tire-info/diameter.png">
+                <p class="text-grey"> Rim Diameter</p>
+                <h1 style="font-weight: 800; font-size: 36px;">{{ diameter }}</h1>
+            </div>
+
+
+            <div class="tire-info-spec-div">
+                <img height="200px;" width="200px" src="assets/tire-info/width.png">
+                <p class="text-grey"> Tire Width</p>
+                <h1 style="font-weight: 800; font-size: 36px;">{{ width }}</h1>
+            </div>
+
+
+            <div class="tire-info-spec-div">
+                <img height="200px;" width="200px" src="assets/tire-info/ratio.png">
+                <p class="text-grey"> Aspect Ratio</p>
+                <h1 style="font-weight: 800; font-size: 36px;">{{ ratio }}</h1>
+            </div>
+
+            <div class="tire-info-spec-div">
+                <img height="200px;" width="200px" src="assets/tire-info/weight.png">
+                <p class="text-grey"> Load Index</p>
+                <h1 style="font-weight: 800; font-size: 36px;">{{ load }}</h1>
+            </div>
+
+            <div class="tire-info-spec-div">
+                <img height="200px;" width="200px" src="assets/tire-info/speed.png">
+                <p class="text-grey"> Speed Rating</p>
+                <h1 style="font-weight: 800; font-size: 36px;">{{ speed }}</h1>
+                <span> {{speed_desc}} </span>
+            </div>
+        </div>
+
+
+
+        <mat-dialog-actions align="center">
+            <button mat-flat-button (click)="close()">Close</button>
+            <button style="width: 80%; " (click)="close_and_select()" color="primary" mat-flat-button mat-dialog-close
+                type="button">
+                Select this tire and continue
+            </button>
+        </mat-dialog-actions>
+    </mat-dialog-content>
+
+</div>

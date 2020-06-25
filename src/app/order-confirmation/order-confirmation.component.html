@@ -1,0 +1,18 @@
+<div class="order-confirm-header">
+
+</div>
+<div class="form-container-centered">
+    <h1 class="text-red" style="font-weight: 800;"> Thank You!</h1>
+    <p> Your payment has been completed</p>
+    <p> A confirmation email has been sent to <b>{{ order_data.user_email }} </b></p>
+    <br>
+    <br>
+    <ng-template [ngIf]="currentUser._id"> <button mat-raised-button color="primary" class="red-button" (click)="nav_to_orders()" > Go To Profile</button></ng-template>
+    
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+</div>

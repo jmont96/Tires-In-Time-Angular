@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material'
 import { PaymentService } from '../_services/payment.service'
 import { AlertService } from '../_services/alert.service'
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,6 +16,7 @@ export class PaymentDialogComponent implements OnInit {
 
   elements: Elements;
   card: StripeElement;
+  final_cost: Number;
 
   // optional parameters
   elementsOptions: ElementsOptions = {
@@ -28,10 +30,11 @@ export class PaymentDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private order_data: any,
     private payment_service: PaymentService,
     private alert_service: AlertService,
+    private router: Router,
     private stripeService: StripeService) { }
 
   ngOnInit() {
-    console.log(this.order_data)
+    this.get_final_cost();
     this.stripeTest = this.fb.group({
       name: ['', [Validators.required]],
       address_city: ['', [Validators.required]],
@@ -64,6 +67,10 @@ export class PaymentDialogComponent implements OnInit {
       });
   }
 
+  get_final_cost() {
+    this.final_cost = (this.order_data.order.tire.cost * this.order_data.order.choices.length);
+  }
+
   buy() {
     const name = this.stripeTest.get('name').value;
     const add1 = this.stripeTest.get('address_line1').value;
@@ -84,25 +91,24 @@ export class PaymentDialogComponent implements OnInit {
         if (result.token) {
           // Use the token to create a charge or a customer
           // https://stripe.com/docs/charges
-          console.log(result.token);
           this.order_data.order['status'] = "active";
           this.order_data.order['timestamp'] = new Date().toJSON();
           this.order_data.order['payment'] = '************' + result.token.card.last4;
-          this.order_data.order['payment_id'] = '************' + result.token.card.last4;
           this.order_data.order['payment_type'] = result.token.card.funding;
 
           const final_obj = {
             order: this.order_data.order,
             token: result.token.id
           }
-          console.log("yeet")
-          this.payment_service.confirmPayment(final_obj).subscribe((x:any) => {
+
+          this.payment_service.confirmPayment(final_obj).subscribe((x: any) => {
             console.log(x);
             this.alert_service.subject.next(x.message);
+            this.router.navigate(['/order-confirmation/', x.order._id], { queryParams: { data: JSON.stringify(x.order) } })
           });
         } else if (result.error) {
           // Error creating the token
-          console.log("errrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+          console.log("errrrrrrr");
           console.log(result.error.message);
         }
       });

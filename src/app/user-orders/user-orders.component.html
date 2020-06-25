@@ -1,0 +1,135 @@
+<div class="padding-container">
+    <h1> Your Orders <span style="font-size: 12px; margin-left: 24px; color: #a30c0c"> {{ orders.length}} total orders</span></h1>
+    <hr>
+    <div *ngFor="let order of orders" class="order-panel">
+        <div class="order-panel-header">
+            <div class="order-panel-header">
+                <h2> {{ order.tire.article_desc }}</h2>
+                <div class="order-panel-date">
+                    <p>{{ order.date }} - {{order.time}}</p>
+                </div>
+                <div class="status-div">
+                    <div class="status-dot"></div>
+                    <p style="color: green"> {{order.status}} </p>
+                </div>
+            </div>
+
+            <div class="order-panel-edit">
+                <p style="margin-right: 12px;"> Edit Order</p>
+                <button mat-mini-fab color="primary" aria-label="Example icon button with a plus one icon">
+                    <mat-icon>create</mat-icon>
+                </button>
+            </div>
+
+        </div>
+
+        <br>
+        <div class="order-panel-vehicle-info">
+            <div class="order-panel-icon-text">
+                <mat-chip-list selectable="false">
+                    <mat-chip>
+                        <mat-icon>airport_shuttle</mat-icon>
+                        &nbsp;&nbsp;
+                        Make: {{order.make}}
+                    </mat-chip>
+
+                    <mat-chip>
+                        <mat-icon>airport_shuttle</mat-icon>
+                        &nbsp;&nbsp;
+                        Model: {{order.model}}
+                    </mat-chip>
+
+                    <mat-chip>
+                        <mat-icon>airport_shuttle</mat-icon>
+                        &nbsp;&nbsp;
+                        Color: {{order.color}}
+                    </mat-chip>
+
+                    <mat-chip>
+                        <mat-icon>airport_shuttle</mat-icon>
+                        &nbsp;&nbsp;
+                        LP #: {{order.license}}
+                    </mat-chip>
+
+                    <mat-chip>
+                        <mat-icon>airport_shuttle</mat-icon>
+                        &nbsp;&nbsp;
+                        Tire Size: {{order.tire.size}}
+                    </mat-chip>
+                </mat-chip-list>
+
+            </div>
+        </div>
+
+        <br>
+
+        <div class="order-panel-info-headers">
+            <h4 class="info-header" style="width: 318px">Tires</h4>
+            <h4 class="info-header" style="width: 306px;"> Location <span style="font-size: 12px; font-weight: 300; color: #a6a6a6" > - {{ order.address.split(',')[0] }}</span></h4>&nbsp; 
+            <h4 class="info-header"> Payment</h4>
+        </div>
+
+        <div class="order-panel-info-boxes">
+            <div class="order-panel-tire-choice">
+                <div class="order-panel-choice-dots">
+                    <div class="choice-dot" [ngClass]="{'grey-back': !order.choices.includes('Left Front')}"></div>
+                    <div class="choice-dot" [ngClass]="{'grey-back': !order.choices.includes('Left Back')}"></div>
+                </div>
+
+                <div class="order-panel-choice-dots">
+                    <mat-icon class="large-icon">drive_eta</mat-icon>
+                    <div style="margin-left: 18px" class="choice-dot"
+                        [ngClass]="{'grey-back': !order.choices.includes('Spare')}"></div>
+                </div>
+
+                <div class="order-panel-choice-dots">
+                    <div class="choice-dot" [ngClass]="{'grey-back': !order.choices.includes('Right Front')}"></div>
+                    <div class="choice-dot" [ngClass]="{'grey-back': !order.choices.includes('Right Back')}"></div>
+                </div>
+
+                <div class="tire-choice-amount" style="padding: 12px;">
+                    <mat-chip-list selectable="false">
+                        <mat-chip>
+                            <mat-icon>airport_shuttle</mat-icon>
+                            &nbsp;&nbsp;
+                            Tires: {{order.choices.length}}
+
+
+                        </mat-chip>
+                    </mat-chip-list>
+                    <span *ngFor="let choice of order.choices">
+                        {{ choice }}</span>
+                </div>
+            </div>
+
+            <div class="order-panel-location">
+                <img
+                    src="https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/static/{{order.location.longitude}},{{order.location.latitude}},14,0/300x200?access_token=pk.eyJ1Ijoiam1vbnQ5NiIsImEiOiJjanowOHVmbWowMDQwM2xtcDRtMWd2d3hkIn0.Qcp01RKc3ICRWeAKpv0_yg">
+
+            </div>
+
+            <div class="order-panel-payment">
+                <mat-chip-list selectable="false" class="mat-chip-list-stacked">
+                    <mat-chip>
+                        <mat-icon>airport_shuttle</mat-icon>
+                        &nbsp;&nbsp;
+                        Payment Method: {{order.payment_type.toUpperCase()}}
+
+                    </mat-chip>
+
+                    <mat-chip>
+                        <mat-icon>airport_shuttle</mat-icon>
+                        &nbsp;&nbsp;
+                        Card Number: {{order.payment}}
+
+                    </mat-chip>
+                </mat-chip-list>
+
+                <h1 class="large-price-dark">
+                    ${{ order.tire.cost * order.choices.length}}
+                </h1>
+            </div>
+        </div>
+
+    </div>
+</div>

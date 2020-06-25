@@ -1,22 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
-import { User } from '..//_models';
 import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
-export class UserService {
+export class TireService {
     constructor(private http: HttpClient) { }
 
-    getAll() {
-        return this.http.get<any>(`${environment.apiUrl}/tires`);
+    getTireQuery(size: String, type: String, warehouse_num: String) {
+        if (type !== "") {
+            return this.http.get<any>(`${environment.apiUrl}/tires/?size=${size}&warehouse_num=${warehouse_num}`);
+        }
+        else {
+            return this.http.get<any>(`${environment.apiUrl}/tires/?size=${size}&warehouse_num=${warehouse_num}&type=${type}`);
+        }
     }
 
-    getTireQuery(size: String, type: String) {
-        return this.http.get<any>(`${environment.apiUrl}/tires/?size=${size}&type=${type}`);
+    updateTireQOH(id: String, warehouse_num: String) {
+        return this.http.put(`${environment.apiUrl}/tires/find/${id}`,  { warehouse_num: warehouse_num });
     }
 
-    getByID(id: number) {
-        return this.http.get(`${environment.apiUrl}/tires/${id}`);
+    getByID(id: number, warehouse_num: String) {
+        return this.http.get(`${environment.apiUrl}/tires/${id}?warehouse_num=${warehouse_num}`);
     }
 }

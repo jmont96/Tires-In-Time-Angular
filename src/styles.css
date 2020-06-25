@@ -6,9 +6,10 @@
     --custom-box-shadow-short: 0 12px 38px rgba(0, 0, 0, 0.02), 0 20px 38px rgba(0, 0, 0, 0.03);
     --custom-box-shadow-tall: 0 12px 38px rgba(0, 0, 0, 0.3), 0 20px 38px rgba(0, 0, 0, 0.2);
     --custom-text-dark: #071108;
-    --custom-text-light: #FFFFFF;
+    --custom-text-light: hsl(0, 0%, 100%);
     --custom-text-grey: #a6a6a6;
     --color-primary: #a30c0c;
+    --custom-background-light-grey: rgba(7, 17, 8, .03);
 }
 
 html, body {
@@ -31,18 +32,363 @@ body {
     }
 }
 
+.size-form-field-container mat-form-field {
+    width: 150px;
+    margin: 24px;
+    
+}
+
+.stepper-next {
+    position:fixed !important;
+	width:150px;
+	height:50px;
+	bottom:40px;
+    left:45%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	background-color: rgba(0,0,0,0);
+    color:var(--custom-text-light);
+    font-weight: 800 !important;
+	border-radius:12px;
+	text-align:center;
+}
+.stepper-next .mat-mini-fab:not([class*=mat-elevation-z]) {
+    box-shadow: var(--custom-box-shadow-tall);
+}
+.size-form-field-container  {
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center !important;
+}
+
+.size-form-field-container h2 {
+    
+    padding-bottom: 20px;
+}
+
+/* ORDERS!!!!! */
+
+.order-panel {
+    box-shadow: var(--custom-box-shadow1);
+    padding: 18px;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 24px;
+}
+
+.status-div {
+    font-size: 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 24px;
+}
+.status-dot {
+    height: 12px;
+    width: 12px;
+    margin-right: 4px;
+    background-color: green;
+    border-radius: 6px;
+}
+
+.order-panel-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    
+}
+
+.order-panel-location {
+    border-radius: 6px;
+    clip-path: inset(0 0 0 0 round 6px 6px 6px 6px);
+    box-shadow: var(--custom-box-shadow-short);
+    align-items: center;
+    flex-shrink: 1 !important;
+    margin-right: 12px;
+}
+
+.order-panel-location img {
+   
+    flex-shrink: 1 !important;
+}
+
+.order-panel-info-headers {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+
+.order-panel-date {
+    margin-left: 24px;
+    background-color: var(--custom-background-light-grey);
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 12px;
+    color: var(--custom-text-grey);
+}
+
+.order-panel-date p {
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+}
+
+.order-panel-edit {
+    float: right !important;
+    justify-content: end;
+    text-align: end;
+    margin-left: auto;
+   
+    color: var(--color-primary);
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    flex-direction: row;
+}
+
+.order-panel-vehicle-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: start;
+   
+}
+
+.order-panel-icon-text {
+    display: inline-flex;
+    flex-direction: column !important;
+    margin-bottom: 12px;
+}
+
+.order-panel-icon-text mat-chip {
+    background-color: #ffffff !important;
+    color: var(--custom-text-dark) !important;
+}
+
+h2 {
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+}
+
+.large-icon {
+    font-size: 54px !important;
+    margin-top: 12px;
+   
+}
+
+.order-panel-payment {
+    display: flex;
+    flex-direction: column;
+    border-radius: 6px;
+    background-color: var(--custom-background-light-grey);
+    padding: 12px;;
+    float:right;
+    width: 620px;
+}
+.order-panel-payment .mat-chip.mat-standard-chip{
+    background-color: rgba(0,0,0,0) !important;
+    font-size: 12px;
+    color: var(--custom-text-dark) !important;
+}
+
+.large-price-dark {
+    float: right;
+    text-align: end;
+    margin-block-end: 0px !important;
+    margin-top: auto;
+}
+
+.choice-dot {
+    background-color: var(--color-primary);
+    border-radius: 12px;
+    height: 18px;
+    width: 18px;
+    margin: 12px;
+   
+}
+.order-panel-info-boxes {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.order-panel-tire-choice {
+    display: flex;
+    flex-direction: row;
+    
+}
+.order-panel-choice-dots {
+    padding: 12px;
+    justify-content: center !important;
+    align-items: middle;
+   
+}
+
+.order-panel-choice-dots mat-icon {
+    height: 54px !important;
+    width: 54px !important;
+}
+
+.tire-choice-amount mat-chip {
+    background-color: #ffffff !important;
+    color: var(--custom-text-dark) !important;;
+}
+
+.order-panel-tire-choice span {
+   display: block !important;
+   font-size: 12px;
+   color: var(--custom-text-grey);
+   padding-left: 12px;
+
+}
+
+.red-back {
+    background-color: var(--color-primary);
+}
+
+.grey-back{
+    background-color: var(--custom-background-light-grey);
+}
+
+/***************/
+
 .fill-remaining-space {
     /* This fills the remaining space, by using flexbox. 
        Every toolbar row uses a flexbox row layout. */
     flex: 1 1 auto;
 }
+.mat-horizontal-content-container {
+    text-align: center;
+}
+
+.padding-container {
+    padding: 84px;
+    padding-top: 24px;
+}
+
+.mat-dialog-container {
+    border-radius: 24px !important;
+    padding: 0px !important;
+}
 
 .form-container-centered {
     text-align: center;
-    margin-top: 72px;
-    margin-left: 72px;
-    margin-right: 72px;
+    max-height: 80%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+
+.form-container-main {
+    padding: 84px;
+    display: flex;
+    justify-content: center;
+}
+
+.red-button {
+    background-color: var(--color-primary) !important;
+    color: var(--custom-text-light) !important;
+}
+
+.order-confirm-header {
+    width: 100%;
+    background-image: url('./assets/order_confirm_header.png');
+    height: 280px;
+    background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.tire-info-specs-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    max-width: 700px;
+    flex-wrap: wrap;
+}
+
+.tire-info-spec-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+.mat-button-toggle-appearance-standard .mat-button-toggle-label-content .mat-button-toggle {
+    line-height: 0px !important;
+    background: var(--custom-background-light-grey) !important;
+    font-size: 14px !important;
+    margin: 4px !important;
+    padding: 0px !important;
+}
+.mat-button-toggle {
+    
+    margin: 4px !important;
+    font-size: 14px !important;
+    border-radius: 4px !important;
+    padding: 0px !important;
+    line-height: 0px !important;
+    background: var(--custom-background-light-grey) !important;
+    color: var(--custom-text-grey) !important;
+}
+
+.mat-button-toggle-group-appearance-standard .mat-button-toggle + .mat-button-toggle {
+    border-left: none;
+    border: none;
+    border-right: none;
+    padding: 0px !important;
+    line-height: 0px !important;
+
+}
+.mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+    line-height: 32px !important;;
+}
+
+.mat-button-toggle-group-appearance-standard {
+    border: none;
+    padding: 0px !important;
+    line-height: 0px !important;
+}
+
+.mat-button-toggle-checked {
+    line-height: 0px !important;
+    background: var(--color-primary) !important;
+    color: var(--custom-text-light) !important;
+    padding: 0px !important;
+    line-height: 0px !important;
+    
+}
+
+.mat-chip-selected {
+    line-height: 0px !important;
+    color: var(--custom-text-light) !important;
+    background: var(--color-primary) !important;
+}
+
+.tire-selection-image {
+    background-image: url('./assets/tire-sample.png');
+    background-size: cover;
+    padding-left: 20px;
+    height: 200px;
+    width: 200px;
+    background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+
+
+}
+
+
 
 span.price {
     float: right;
@@ -54,20 +400,30 @@ span.price-total {
     color: var(--color-primary);
 }
 
+.red-text {
+    color: var(--color-primary) !important;
+}
+.white-text {
+    color: var(--custom-text-light) !important;
+}
+
 .separator {
     display: flex;
     align-items: center;
     text-align: center;
     color: var(--custom-text-grey)
 }
+
 .separator::before, .separator::after {
     content: '';
     flex: 1;
     border-bottom: 1px solid var(--custom-text-grey);
 }
+
 .separator::before {
     margin-right: 12px;
 }
+
 .separator::after {
     margin-left: 12px;
 }
@@ -95,9 +451,94 @@ span.price-total {
     margin: 15px 0;
 }
 
+.text-grey {
+    color: var(--custom-text-grey)
+}
+
+.overlay{
+    position: absolute;
+    height: 380px;
+    width: 250px;
+    z-index: 10;
+    background-color: rgba(255, 255, 255, .65); /*dim the background*/
+  }
+
 .example-radio-button {
     margin: 5px;
     max-width: 300px;
+}
+.example-radio-button-2 {
+    margin: 9px;
+    width: 250px;
+    height: 380px;
+    display: flex;
+    justify-content: left !important;
+    padding-right: 46px !important;
+
+}
+
+.text-red {
+    color: var(--color-primary) !important;
+}
+
+.tire-card-contents {
+    display: flex;
+    justify-content: left !important;
+    line-height: normal;
+    text-align:left;
+    flex-direction: column;
+    width: 100% !important;
+    margin-right: -36px;
+}
+
+.tire-card-info-btn mat-mini-fab mat-button-base mat-accent {
+    background-color: var(--custom-text-light) !important;
+    display: flex;
+    align-items: center !important;
+}
+
+.tire-card-info-btn {
+    background-color: var(--custom-text-light) !important;
+    display: flex;
+    align-items: center !important;
+}
+
+.tire-card-info-btn mat-mini-fab mat-button-base mat-accent {
+    background-color: var(--custom-text-light) !important;
+    display: flex;
+    align-items: center !important;
+}
+.mat-mini-fab.mat-accent.tire-card-info-btn{
+    background-color: var(--custom-text-light) !important;
+    color: var(--custom-text-grey) !important;
+    box-shadow: var(--custom-box-shadow1) !important;
+}
+
+.tire-card-content-container {
+    display: flex;
+    flex-direction: row;
+    height: 176px;
+}
+
+.tire-fab-container {
+    display: flex;
+    padding-bottom: 12px;
+    align-items: flex-end !important;
+}
+
+.tire-card-price {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.auth-p {
+    margin-block-end: 2px !important;
+    margin-block-start: 2px !important;
 }
 
 mat-horizontal-stepper {
@@ -114,6 +555,15 @@ mat-horizontal-stepper {
     height: 500px;
     position: relative;
     border-radius: 24px;
+    margin-bottom: 48px;
+    clip-path: inset(0 0 0 0 round 24px 24px 24px 24px);
+}
+
+.order-panel-map-div {
+    width: 100%;
+    height: 200px;
+    position: relative;
+    border-radius: 24px;
     clip-path: inset(0 0 0 0 round 24px 24px 24px 24px);
 }
 
@@ -122,7 +572,7 @@ mat-horizontal-stepper {
     box-shadow: var(--custom-box-shadow1);
     border-radius: 24px;
     margin: auto;
-    margin-bottom: 48px;
+    
 }
 
 .description-text {
@@ -208,5 +658,54 @@ mat-horizontal-stepper {
     max-width: 400px;
     margin: auto;
 }
+
+.home-page-card {
+    border-radius: 24px;
+    box-shadow: var(--custom-box-shadow1);
+    width: 200px;
+    background-color: var(--custom-text-light);
+    padding: 24px;
+    margin: 12px;
+    color: var(--custom-text-dark);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.home-img {
+    width: 100%;
+}
+
+.home-page-number {
+    border-radius: 40px;
+    height: 80px;
+    width: 80px;
+    font-size: 24px;
+    font-weight: 800;
+    background-color: #eeeeee;
+    color: var(--custom-text-dark);
+    margin: auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-page-arrow {
+    border-radius: 25px;
+    height: 50px;
+    width: 50px;
+    background-color: var(--custom-text-light);
+    color: var(--custom-text-dark);
+}
+
+.home-page-how-it-works-container {
+    display: flex;
+    flex-direction: row;
+    padding: 30px;
+    align-items: center;
+    justify-content: center;
+}
+
+
 
 /*          **********          */

@@ -7,19 +7,13 @@ import { environment } from 'src/environments/environment';
 export class VehicleService {
     constructor(private http: HttpClient) { }
 
-    getModelOptions(make, year) {
-        console.log(make);
-        console.log(year);
-        return this.http.get<String[]>(`${environment.apiUrl}/vehicles/get-model-options?make=${make}&year=${year}`);
+    getModelOptions(make) {
+        return this.http.get<String[]>(`${environment.apiUrl}/vehicles/get-model-options?make=${make}`);
     }
 
-    getTrimOptions(make, model, year) {
-        return this.http.get<String[]>(`${environment.apiUrl}/vehicles/get-trim-options?make=${make}&model=${model}&year=${year}`);
-    }
-
-    getTireSize(make, model, year, trim) {
-        return this.http.get<String[]>(`${environment.apiUrl}/vehicles/get-tire-options?make=${make}&model=${model}&year=${year}&trim=${trim}`);
-    }
+    // getTireSize(make, model, year, trim) {
+    //     return this.http.get<String[]>(`${environment.apiUrl}/vehicles/get-tire-options?make=${make}&model=${model}&year=${year}&trim=${trim}`);
+    // }
 
     getMakeBrands() {
         return this.http.get<String[]>(`${environment.apiUrl}/vehicles/get-make-brands`);

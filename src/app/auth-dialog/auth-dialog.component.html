@@ -1,0 +1,176 @@
+<div style="padding: 24px">
+    <ng-template [ngIf]="loginPage">
+        <div class="form-container-centered">
+
+
+            <!-- <img src="assets/tit-logo.png" width="200px"> -->
+
+            <h2>Login</h2>
+
+            <mat-dialog-content class="mat-typography">
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin()">
+                    <p class="auth-p">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Email Address</mat-label>
+                            <input matInput placeholder="Email" formControlName="email"
+                                [ngClass]="{ 'is-invalid': submitted && f_login.email.errors }">
+                            <mat-icon matSuffix>mail</mat-icon>
+                            <mat-hint *ngIf="submitted && f_login.email.errors" class="invalid-feedback">
+                                <div *ngIf="f_login.email.errors.required">Email is required</div>
+                            </mat-hint>
+                        </mat-form-field>
+
+
+                    </p>
+                    <p class="auth-p">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Password</mat-label>
+                            <input matInput placeholder="Password" formControlName="password" type='password'
+                                [ngClass]="{ 'is-invalid': submitted && f_login.password.errors }">
+                            <mat-icon matSuffix>vpn_key</mat-icon>
+                            <mat-hint *ngIf="submitted && f_login.password.errors" class="invalid-feedback">
+                                <div *ngIf="f_login.password.errors.required">Password is required</div>
+                            </mat-hint>
+                        </mat-form-field>
+
+
+                    </p>
+                    <p>
+
+                        <button mat-button type="submit" color="primary" [disabled]="loading">Sign In</button>
+                    </p>
+
+                    <button mat-button type="button" (click)="showRegister()" class="btn btn-link">I need an
+                        account</button>
+                </form>
+
+                <br>
+
+                <div class="separator">
+                    or
+                </div>
+                <br>
+                <br>
+                <form [formGroup]="guest_form" (ngSubmit)="onSubmitGuest()">
+
+                    <p class="auth-p">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Guest Email</mat-label>
+                            <input matInput placeholder="Guest Email" formControlName="email" type='text'
+                                [ngClass]="{ 'is-invalid': submitted && f_guest.email.errors }">
+                            <mat-icon matSuffix>vpn_key</mat-icon>
+                            <mat-hint *ngIf="submitted && f_guest.email.errors" class="invalid-feedback">
+                                <div *ngIf="f_guest.email.errors.required">Password is required</div>
+
+
+                            </mat-hint>
+                        </mat-form-field>
+                    </p>
+
+                    <div class="form-container-centered">
+                        <button mat-button class="btn btn-link" type="submit">Continue as a Guest </button>
+                    </div>
+
+                </form>
+            </mat-dialog-content>
+
+
+        </div>
+
+    </ng-template>
+
+    <ng-template [ngIf]="!loginPage">
+        <div class="form-container-centered">
+
+            <h2>Register</h2>
+            <mat-dialog-content>
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmitRegister()">
+                    <p class="auth-p">
+                        <mat-form-field appearance="outline">
+                            <mat-label>First Name</mat-label>
+                            <input matInput placeholder="First Name" formControlName="firstName"
+                                [ngClass]="{ 'is-invalid': submitted && f_register.firstName.errors }">
+                            <mat-icon matSuffix>face</mat-icon>
+
+                            <mat-hint *ngIf="submitted && f_register.firstName.errors" class="invalid-feedback">
+                                <div *ngIf="f_register.firstName.errors.required">First Name is required</div>
+                            </mat-hint>
+                        </mat-form-field>
+                    </p>
+                    <p class="auth-p">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Last Name</mat-label>
+                            <input matInput placeholder="Last Name" formControlName="lastName"
+                                [ngClass]="{ 'is-invalid': submitted && f_register.lastName.errors }">
+                            <mat-icon matSuffix>group</mat-icon>
+                            <mat-hint *ngIf="submitted && f_register.lastName.errors" class="invalid-feedback">
+                                <div *ngIf="f_register.lastName.errors.required">Last Name is required</div>
+                            </mat-hint>
+                        </mat-form-field>
+                    </p>
+                    <p class="auth-p">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Email Address</mat-label>
+                            <input matInput placeholder="Email" formControlName="email"
+                                [ngClass]="{ 'is-invalid': submitted && f_register.email.errors }">
+                            <mat-icon matSuffix>mail</mat-icon>
+                            <mat-hint *ngIf="submitted && f_register.email.errors" class="invalid-feedback">
+                                <div *ngIf="f_register.email.errors.required">Email is required</div>
+                                <div *ngIf="f_register.email.errors.email">Email is not valid</div>
+                            </mat-hint>
+                        </mat-form-field>
+                    </p>
+                    <p class="auth-p">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Password</mat-label>
+                            <input matInput placeholder="Password" formControlName="password" type='password'
+                                [ngClass]="{ 'is-invalid': submitted && f_register.password.errors }">
+                            <mat-icon matSuffix>vpn_key</mat-icon>
+                            <mat-hint *ngIf="submitted && f_register.password.errors" class="invalid-feedback">
+                                <div *ngIf="f_register.password.errors.required">Password is required</div>
+                                <div *ngIf="f_register.password.errors.minlength">Password must be at least 6 characters
+                                </div>
+                            </mat-hint>
+                        </mat-form-field>
+                    </p>
+                    <p class="auth-p">
+
+                        <button mat-button color="primary" [disabled]="loading">Register</button>
+                    </p>
+
+                    <button mat-button type="button" (click)="showLogin()" class="btn btn-link">I already have an
+                        account</button>
+
+                </form>
+
+                <form [formGroup]="guest_form" (ngSubmit)="onSubmitGuest()">
+
+                    <p class="auth-p">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Guest Email</mat-label>
+                            <input matInput placeholder="Guest Email" formControlName="email" type='text'
+                                [ngClass]="{ 'is-invalid': submitted && f_guest.email.errors }">
+                            <mat-icon matSuffix>vpn_key</mat-icon>
+                            <mat-hint *ngIf="submitted && f_guest.email.errors" class="invalid-feedback">
+                                <div *ngIf="f_guest.email.errors.required">Password is required</div>
+
+
+                            </mat-hint>
+                        </mat-form-field>
+                    </p>
+
+                    <div class="form-container-centered">
+                        <button mat-button class="btn btn-link" type="submit">Continue as a Guest </button>
+                    </div>
+
+                </form>
+            </mat-dialog-content>
+
+        </div>
+
+
+
+    </ng-template>
+
+
+</div>

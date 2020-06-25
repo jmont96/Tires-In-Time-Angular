@@ -12,6 +12,14 @@ export class OrdersService {
         return this.http.get<any>(`${environment.apiUrl}/users`);
     }
 
+    get_orders_for_user(id) {
+        return this.http.get<any>(`${environment.apiUrl}/orders/get-for-user/${id}`);
+    }
+
+    get_orders_on_date(date) {
+        return this.http.get<String[]>(`${environment.apiUrl}/orders/get-orders-on-date/${date}`);
+    }
+
     createOrder(order) {
         console.log("Create Order")
         console.log(order)
