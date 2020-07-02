@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA } from '@angular/material'
 import { PaymentService } from '../_services/payment.service'
 import { AlertService } from '../_services/alert.service'
 import { Router } from '@angular/router';
+import { TireService } from '../_services/tires.service';
 
 
 @Component({
@@ -31,6 +32,7 @@ export class PaymentDialogComponent implements OnInit {
     private payment_service: PaymentService,
     private alert_service: AlertService,
     private router: Router,
+    private tire_service: TireService,
     private stripeService: StripeService) { }
 
   ngOnInit() {
@@ -68,7 +70,7 @@ export class PaymentDialogComponent implements OnInit {
   }
 
   get_final_cost() {
-    this.final_cost = (this.order_data.order.tire.cost * this.order_data.order.choices.length);
+    this.final_cost = (this.order_data.order.tire.cost * this.order_data.order.choices.length) + (15 * this.order_data.order.choices.length) + this.order_data.order.choices.length;
   }
 
   buy() {
@@ -102,9 +104,12 @@ export class PaymentDialogComponent implements OnInit {
           }
 
           this.payment_service.confirmPayment(final_obj).subscribe((x: any) => {
-            console.log(x);
             this.alert_service.subject.next(x.message);
-            this.router.navigate(['/order-confirmation/', x.order._id], { queryParams: { data: JSON.stringify(x.order) } })
+            this.tire_service.updateTireQOH(x.order.tire._id, '3036', x.order.choices.length.toString()).subscribe(y => {
+              console.log(x.order)
+              this.router.navigate(['/order-confirmation/', x.order._id], { queryParams: { data: JSON.stringify(x.order) } })
+            })
+            
           });
         } else if (result.error) {
           // Error creating the token
