@@ -15,8 +15,9 @@ export class TireService {
         }
     }
 
-    updateTireQOH(id: String, warehouse_num: String) {
-        return this.http.put(`${environment.apiUrl}/tires/find/${id}`,  { warehouse_num: warehouse_num });
+    updateTireQOH(id: String, warehouse_num: String, quanity: String) {
+        console.log("called update QOH")
+        return this.http.put(`${environment.apiUrl}/tires/${id}`,  { warehouse_num: warehouse_num, quantity: quanity });
     }
 
     getByID(id: number, warehouse_num: String) {

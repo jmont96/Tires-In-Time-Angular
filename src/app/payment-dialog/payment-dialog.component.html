@@ -13,7 +13,8 @@
             <p>{{order_data.order.tire.article_desc}} &nbsp; x {{order_data.order.choices.length}} <span
                     class="price">${{ order_data.order.tire.cost }}</span></p>
 
-            <p style="font-weight: 900">Total <span class="price-total">${{ final_cost }}</span></p>
+            <p style="font-weight: 900">Total <span class="price-total" matTooltip="Fees: Mounting & Balancing Fee = $15 per tire. 
+               Tire Recycling Fee = $1 per tire" matTooltipPosition="right">${{ final_cost }}</span> </p>
             <br>
             <br>
 

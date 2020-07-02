@@ -64,6 +64,7 @@ export class MainFormComponent implements OnInit {
     amount_matches_choice = true;
     show_extra_makes_button = true;
     address_chosen_successfully = false;
+    address_error = false;
 
     // Flag for responsive design
     mobile_screen: boolean;
@@ -215,10 +216,10 @@ export class MainFormComponent implements OnInit {
     constructFinalPageArray() {
 
         this.progress_value = 100;
-        
+
         const keys = Object.keys(this.final_order);
         const values = Object.values(this.final_order);
-        console.log(values)
+       
         const icons = options.icons;
         this.final_page_array = [];
 
@@ -290,10 +291,10 @@ export class MainFormComponent implements OnInit {
             this.tire_choice_form.controls.hidden_input.disable();
 
             if (!this.amount_matches_choice) {
-                console.log("getting tires")
+               
                 this.progress_value = 90;
                 this.tire_type_filters = [];
-    
+
                 this.tire_service.getTireQuery(this.final_order.size, "", "3036").subscribe(data => {
                     this.tire_options = data;
                     this.tire_result_set = data;
@@ -322,20 +323,35 @@ export class MainFormComponent implements OnInit {
     /** Confirms that the user has selected an address and saves it to the order */
     onAutocompleteSelected(event: Event) {
         this.final_order.address = event['formatted_address'];
-        this.address_chosen_successfully = true;
 
-        if(this.extra_info_form.status == "VALID"){
+        if (this.extra_info_form.status == "VALID") {
             this.constructFinalPageArray();
         }
     }
     /** Updates the map marker with the user's selected address */
     onLocationSelected(event: Event) {
-        console.log("location selected")
+       
         this.mapbox.updateMarker(event["latitude"], event["longitude"]);
-        this.final_order.location = {
+        this.mapbox.get_distance_between_cordinates({
             latitude: event['latitude'],
             longitude: event["longitude"]
-        }
+        }).subscribe(x => {
+           
+            if((x.routes[0].distance / 1609) <= 45){
+                this.address_chosen_successfully = true;
+                this.final_order.location = {
+                    latitude: event['latitude'],
+                    longitude: event["longitude"]
+                }
+                this.address_error = false;
+            }
+            else{
+                this.address_chosen_successfully = false;
+                this.address_error = true;
+            }
+            
+        })
+
     }
 
     /** Function to activiate flag for opening more options of tire amount */
@@ -375,7 +391,7 @@ export class MainFormComponent implements OnInit {
         this.updateMatchCheck()
 
 
-       
+
     }
 
 
@@ -442,11 +458,11 @@ export class MainFormComponent implements OnInit {
 
         this.tire_size_form.valueChanges.subscribe(x => {
             this.final_order.size = x.width + "/" + x.ratio + "R" + x.rim
-            console.log(this.final_order.size)
+           
         })
 
         this.tire_choice_form.controls.tire_amount.valueChanges.subscribe(x => {
-            console.log(x);
+           
             if (x === 4) {
                 this.check_all_options()
             }
@@ -455,9 +471,7 @@ export class MainFormComponent implements OnInit {
                 this.updateMatchCheck();
             }
 
-            console.log(!this.amount_matches_choice)
 
-            
         })
 
         this.tire_form.valueChanges.subscribe(x => {
@@ -465,7 +479,7 @@ export class MainFormComponent implements OnInit {
         });
 
         this.extra_info_form.valueChanges.subscribe(x => {
-            console.log(x);
+          
             this.final_order.color = x.color;
             if (x.date !== "") {
                 const date_arr = x.date.toString().split(' ');
@@ -476,13 +490,13 @@ export class MainFormComponent implements OnInit {
             }
 
             this.final_order.license = x.license_number;
-        
+
             this.final_order.time = x.time
 
-            if(x.date != "" && x.color != "" && x.time != "" && x.address.length > 10 && this.address_chosen_successfully && x.license_number != ""){
+            if (x.date != "" && x.color != "" && x.time != "" && x.address.length > 10 && this.address_chosen_successfully && x.license_number != "") {
                 this.constructFinalPageArray();
             }
-            
+
         });
     }
 
@@ -542,7 +556,7 @@ export class MainFormComponent implements OnInit {
     }
 
     onSubmitExtra(event: Event) {
-       
+
         // this.progress_value = 100;
         // this.final_order.license = this.extra_info_form.controls['license_number'].value;
         // const date_arr = this.extra_info_form.controls['date'].value.toString().split(' ');

@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import * as mapboxgl from 'mapbox-gl';
 import { GeoJson } from '../_models/GeoJson';
 import { Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 
 @Injectable({
@@ -15,7 +16,7 @@ export class MapboxService {
   lng = 80.20929129999999;
   location_observer;
   message = 'Hello World!';
-  constructor() {
+  constructor(private http: HttpClient) {
     (mapboxgl as any).accessToken = environment.mapbox.accessToken;
     this.location_observer = new Subject<Number>();
   }
@@ -45,6 +46,17 @@ export class MapboxService {
 
   removeMarker() {
 
+  }
+
+  get_distance_between_cordinates(coordinate) {
+    const lat = 38.867834
+    const lng = -77.072218;
+
+    const lat2 = coordinate.latitude;
+    const lng2 = coordinate.longitude;
+
+    return this.http.get<any>('https://api.mapbox.com/directions/v5/mapbox/driving/' + lng + '%2C' + lat + '%3B' + lng2 + '%2C' + lat2 + '?alternatives=false&geometries=geojson&steps=false&access_token=' + environment.mapbox.accessToken);
+   
   }
 
 }

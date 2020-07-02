@@ -41,6 +41,8 @@ import { MatButtonToggleModule } from '@angular/material';
 import { TireInfoDialogComponent } from './tire-info-dialog/tire-info-dialog.component';
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 import { UserOrdersComponent } from './user-orders/user-orders.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+
 
 @NgModule({
   declarations: [
@@ -65,6 +67,7 @@ import { UserOrdersComponent } from './user-orders/user-orders.component';
     BrowserAnimationsModule,
     MatSliderModule,
     MatToolbarModule,
+    MatTooltipModule,
     appRoutingModule,
     MatButtonToggleModule,
     HttpClientModule,
