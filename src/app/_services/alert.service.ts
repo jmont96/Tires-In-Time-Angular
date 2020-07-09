@@ -2,6 +2,7 @@
 import { Router, NavigationStart } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 
+
 @Injectable({ providedIn: 'root' })
 export class AlertService {
     public subject = new Subject<any>();
