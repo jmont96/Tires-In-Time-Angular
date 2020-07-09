@@ -20,8 +20,8 @@ phases:
       - echo building...
       - ng build 
 #       - scp -i ./tires_key_pair.pem -r **/* ubuntu@ec2-35-183-165-236.ca-central-1.compute.amazonaws.com:/opt/front-end
-# artifacts:
-#     files:
-#       - "**/*"
-#   discard-paths: no
-#   base-directory: dist/tires-in-time-angular
+artifacts:
+  files:
+      - "**/*"
+  discard-paths: no
+  base-directory: dist/*
