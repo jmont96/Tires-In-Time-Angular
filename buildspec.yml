@@ -1,9 +1,10 @@
 version: 0.1
 
 phases:
-  install:
+ install:
+    run-as: Linux-user-name
     runtime-versions:
-      nodejs: 8
+      runtime: nodejs 8
   pre_build:
     commands:
       - echo installing dependencies...
