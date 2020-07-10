@@ -1,0 +1,83 @@
+<div style="padding: 20px;" class="edit-dialog-container">
+
+
+    <h2 mat-dialog-title>Edit Your Order </h2>
+
+    <mat-dialog-content class="mat-typography">
+
+        <div class="form-container-centered">
+
+
+            <form [formGroup]="extra_info_form" (ngSubmit)="onSubmitExtra()">
+                <ng-template matStepLabel>Details</ng-template>
+
+                <h3>Replacement Date & Time</h3>
+                <p class="text-grey"> Currently set for {{old_date}} at Currently set for
+                    {{old_time}}</p>
+                <mat-form-field appearance="outline" class="example-full-width">
+                    <mat-label>Date</mat-label>
+                    <input matInput [matDatepicker]="picker" value="{{order_data.order_data.date}}"
+                        placeholder="{{order_data.order_data.date}}" formControlName="date">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker touchUi #picker></mat-datepicker>
+                </mat-form-field>
+                <br>
+                <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                    formControlName="time">
+                    <mat-radio-button color="primary" class="example-radio-button card-input-element"
+                        *ngFor="let time of times_available" [value]="time">
+                        {{time}}
+                    </mat-radio-button>
+                </mat-radio-group>
+
+                <h3>Address of Appointment</h3>
+
+                <p class="text-grey"> Currently set for {{old_address}}</p>
+                <ng-template [ngIf]="address_error">
+                    <div class="error-container">
+                        <p style="font-size: 12px;">Unfortauntely, we don't serve your area. Try another
+                            location
+                            closer to Arlington, VA.
+                        </p>
+                    </div>
+                </ng-template>
+                <mat-form-field appearance="outline">
+                    <mat-label>Address</mat-label>
+                    <input matInput matGoogleMapsAutocomplete [country]="de"
+                        (onAutocompleteSelected)="onAutocompleteSelected($event)"
+                        (onLocationSelected)="onLocationSelected($event)" formControlName="address">
+                    <mat-icon matSuffix>room</mat-icon>
+                </mat-form-field>
+                <div class="map-wrap">
+                    <div class="map-div">
+                        <map-box></map-box>
+                    </div>
+                </div>
+            </form>
+            <br>
+            <br>
+            <br>
+            <br>
+
+            
+            <p>
+
+                <ng-template [ngIf]="!delete_clicked">
+                    <button mat-button color="primary" (click)="reveal_delete()">Cancel this order</button>
+                </ng-template>
+                <ng-template [ngIf]="delete_clicked">
+                    <p class="text-red">Are you sure you want to cancel this order? This cannot be undone </p>
+                    <button mat-raised-button color="primary" (click)="delete_and_close()">Cancel this order</button>
+                </ng-template>
+            </p>
+            <br><br>
+        </div>
+
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-flat-button (click)="close()">Close</button>
+        <button mat-flat-button (click)="update_and_close()" color="primary" mat-flat-button type="button">
+            Confirm Changes
+        </button>
+    </mat-dialog-actions>
+</div>

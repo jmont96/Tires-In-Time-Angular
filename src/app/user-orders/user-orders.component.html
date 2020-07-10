@@ -16,7 +16,7 @@
 
             <div class="order-panel-edit">
                 <p style="margin-right: 12px;"> Edit Order</p>
-                <button mat-mini-fab color="primary" aria-label="Example icon button with a plus one icon">
+                <button mat-mini-fab color="primary" (click)="open_edit_order_dialog(order)" aria-label="Example icon button with a plus one icon">
                     <mat-icon>create</mat-icon>
                 </button>
             </div>
@@ -90,9 +90,9 @@
                 <div class="tire-choice-amount" style="padding: 12px;">
                     <mat-chip-list selectable="false">
                         <mat-chip>
-                            <mat-icon>airport_shuttle</mat-icon>
+                            
                             &nbsp;&nbsp;
-                            Tires: {{order.choices.length}}
+                            Tires: {{ order.choices.length }}
 
 
                         </mat-chip>

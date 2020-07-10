@@ -292,7 +292,7 @@ export class MainFormComponent implements OnInit {
 
             if (!this.amount_matches_choice) {
                
-                this.progress_value = 90;
+                this.progress_value = 70;
                 this.tire_type_filters = [];
 
                 this.tire_service.getTireQuery(this.final_order.size, "", "3036").subscribe(data => {
@@ -444,7 +444,8 @@ export class MainFormComponent implements OnInit {
                         },
                         error => {
                             this.alertService.subject.next("Something went wrong...");
-                        });
+                        });;
+                this.progress_value = 25;
                 this.goForward();
 
             }
@@ -452,18 +453,24 @@ export class MainFormComponent implements OnInit {
         this.model_form.valueChanges.subscribe(x => {
             if (x['model'] != "") {
                 this.final_order.model = x.model;
+                this.progress_value = 40;
                 this.goForward();
             }
         })
 
         this.tire_size_form.valueChanges.subscribe(x => {
             this.final_order.size = x.width + "/" + x.ratio + "R" + x.rim
+
+            if(this.tire_size_form.status == "VALID"){
+                this.progress_value = 55;
+            }
            
         })
 
         this.tire_choice_form.controls.tire_amount.valueChanges.subscribe(x => {
            
             if (x === 4) {
+                this.progress_value = 70;
                 this.check_all_options()
             }
             else {
@@ -471,11 +478,11 @@ export class MainFormComponent implements OnInit {
                 this.updateMatchCheck();
             }
 
-
         })
 
         this.tire_form.valueChanges.subscribe(x => {
             this.final_order.tire = x.tire_id_selection;
+            this.progress_value = 85;
         });
 
         this.extra_info_form.valueChanges.subscribe(x => {
@@ -495,76 +502,13 @@ export class MainFormComponent implements OnInit {
 
             if (x.date != "" && x.color != "" && x.time != "" && x.address.length > 10 && this.address_chosen_successfully && x.license_number != "") {
                 this.constructFinalPageArray();
+                this.progress_value = 100;
             }
 
         });
     }
 
     /********************************  FORM SUBMIT FUNCTIONS  ******************************* */
-
-    onSubmitMake(event: Event) {
-        // this.final_order.make = this.make_year_form.controls['make'].value;
-
-        // this.vehicleService.getModelOptions(this.final_order.make).pipe(first())
-        //     .subscribe(
-        //         data => {
-        //             this.model_options = data;
-        //             this.progress_value = 20;
-        //         },
-        //         error => {
-        //             this.alertService.subject.next("Something went wrong...");
-        //         });
-    }
-
-    onSubmitModel(event: Event) {
-        //this.final_order.model = this.model_form.controls['model'].value
-    }
-
-
-    onSubmitSize(event: Event) {
-        // this.progress_value = 65;
-        // this.final_order.size = this.tire_size_form.controls.width.value + "/" + this.tire_size_form.controls.ratio.value + "R" + this.tire_size_form.controls.rim.value
-    }
-
-    onSubmitChoice(event: Event) {
-        // this.progress_value = 90;
-
-        // this.tire_service.getTireQuery(this.final_order.size, "", "3036").subscribe(data => {
-        //     this.tire_options = data;
-        //     this.tire_result_set = data;
-        //     this.tire_type_filters.push("ALL");
-        //     this.tire_options.forEach(element => {
-        //         if (!this.tire_type_filters.includes(element.type)) {
-        //             this.tire_type_filters.push(element.type);
-        //         }
-        //         if (element.qoh < this.final_order.choices.length) {
-        //             element['low_stock'] = true;
-        //         }
-        //         else {
-        //             element['low_stock'] = false;
-        //         }
-        //     });
-        //     this.tire_result_set = this.tire_options;
-        // },
-        //     error => {
-        //         console.log(error);
-        //     })
-    }
-
-    onSubmitTires(event: Event) {
-        this.progress_value = 90;
-    }
-
-    onSubmitExtra(event: Event) {
-
-        // this.progress_value = 100;
-        // this.final_order.license = this.extra_info_form.controls['license_number'].value;
-        // const date_arr = this.extra_info_form.controls['date'].value.toString().split(' ');
-        // this.final_order.date = date_arr[0] + " " + date_arr[1] + " " + date_arr[2];
-        // this.final_order.time = this.extra_info_form.controls['time'].value
-
-        //this.constructFinalPageArray()
-    }
 
     /** Functions to control the stepper */
     goBack() {

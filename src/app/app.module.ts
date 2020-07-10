@@ -42,6 +42,7 @@ import { TireInfoDialogComponent } from './tire-info-dialog/tire-info-dialog.com
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 import { UserOrdersComponent } from './user-orders/user-orders.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { EditOrderComponent } from './edit-order/edit-order.component';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     AuthDialogComponent,
     TireInfoDialogComponent,
     OrderConfirmationComponent,
-    UserOrdersComponent
+    UserOrdersComponent,
+    EditOrderComponent
     
   ],
   imports: [
@@ -100,7 +102,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     MatDatepickerModule,
   ],
-  entryComponents: [TireSizeDialogComponent, PaymentDialogComponent, AuthDialogComponent, TireInfoDialogComponent],
+  entryComponents: [TireSizeDialogComponent, PaymentDialogComponent, AuthDialogComponent, TireInfoDialogComponent, EditOrderComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -278,6 +278,10 @@ h2 {
     text-align: center;
 }
 
+.edit-dialog-container {
+    max-width: 400px;
+}
+
 .padding-container {
     padding: 84px;
     padding-top: 24px;
