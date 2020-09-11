@@ -1,38 +1,89 @@
 <mat-toolbar>
-  <span><img src="assets/tit-logo.png" width="100px"></span>
-  <span>Tires In Time</span>
+
 
   <!-- This fills the remaining space of the current row -->
 
-  &nbsp;
-  &nbsp;
-  &nbsp;
-  &nbsp;
-  <button mat-button routerLink="/">Home</button>
-  <button mat-button routerLink="/schedule-form">Schedule an Appointment</button>
-  <span class="fill-remaining-space"></span>
-  <ng-template [ngIf]="show_nav">
-    <button mat-button [matMenuTriggerFor]="menu">
-      <mat-icon>expand_more</mat-icon>
-      {{ currentUser.user.email }}
-    </button>
-    <mat-menu #menu="matMenu">
-      <p mat-menu-item> Signed in as {{ currentUser.user.email}}</p>
-      <button mat-menu-item (click)="nav_to_orders()">
-        <mat-icon>shopping_cart</mat-icon>
-        <span>Orders</span>
+
+
+  <ng-template [ngIf]="mobile_screen" [ngIfElse]="bigScreen">
+    <span><img src="assets/tit-logo.png" width="80px" style="margin-top: 8px"></span>
+    <span class="fill-remaining-space"></span>
+    <ng-template [ngIf]="show_nav">
+      <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon>menu</mat-icon>
+
       </button>
-      
-      <button mat-menu-item (click)="logout()">
-        <mat-icon>exit_to_app</mat-icon>
-        <span>Sign Out</span>
+      <mat-menu #menu="matMenu">
+
+        <button mat-menu-item routerLink="/">
+          <mat-icon>home</mat-icon>
+          <span>Home</span>
+        </button>
+
+        <button mat-menu-item routerLink="/schedule-form">
+          <mat-icon>today</mat-icon>
+          <span>Schedule Tire Change</span>
+        </button>
+
+        <button mat-menu-item routerLink="/contact">
+          <mat-icon>contact_support</mat-icon>
+          <span>Contact Us</span>
+        </button>
+
+        <button mat-menu-item (click)="nav_to_orders()">
+          <mat-icon>shopping_cart</mat-icon>
+          <span>Orders</span>
+        </button>
+
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Sign Out</span>
+        </button>
+      </mat-menu>
+
+    </ng-template>
+    <ng-template [ngIf]="!show_nav">
+      <button mat-button color="primary" (click)="open_register_dialog()">Sign In</button>
+    </ng-template>
+  </ng-template>
+
+
+  <ng-template #bigScreen>
+    <span><img src="assets/tit-logo.png" width="100px"></span>
+    <span>Tires In Time</span>
+    &nbsp;
+    &nbsp;
+    &nbsp;
+    &nbsp;
+    <button mat-button routerLink="/">Home</button>
+    <button mat-button routerLink="/schedule-form">Schedule Tire Change</button>
+    <button mat-button routerLink="/contact">Contact Us</button>
+
+    <span class="fill-remaining-space"></span>
+    <ng-template [ngIf]="show_nav">
+      <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon>expand_more</mat-icon>
+        {{ currentUser.user.email }}
       </button>
-    </mat-menu>
-    
+      <mat-menu #menu="matMenu">
+        <p mat-menu-item> Signed in as {{ currentUser.user.email}}</p>
+        <button mat-menu-item (click)="nav_to_orders()">
+          <mat-icon>shopping_cart</mat-icon>
+          <span>Orders</span>
+        </button>
+
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Sign Out</span>
+        </button>
+      </mat-menu>
+
+    </ng-template>
+    <ng-template [ngIf]="!show_nav">
+      <button mat-button color="primary" (click)="open_register_dialog()">Sign In</button>
+    </ng-template>
   </ng-template>
-  <ng-template [ngIf]="!show_nav">
-    <button mat-button color="primary" (click)="open_register_dialog()">Sign In</button>
-  </ng-template>
+
 </mat-toolbar>
 
 

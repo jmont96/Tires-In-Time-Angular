@@ -6,6 +6,7 @@ import { User } from './_models';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatDialog } from '@angular/material'
 import { AuthDialogComponent } from './auth-dialog/auth-dialog.component'
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 
 @Component({
@@ -17,13 +18,16 @@ export class AppComponent {
   title = 'tiresInTimeFrontend';
   currentUser: User;
   show_nav = false;
+  // Flag for responsive design
+  mobile_screen: boolean;
 
     constructor(
         private router: Router,
         private authenticationService: AuthenticationService,
         private notificationService: AlertService, 
         private snackBar: MatSnackBar,
-        public dialog: MatDialog
+        public dialog: MatDialog,
+        private breakpointObserver: BreakpointObserver,
     ) {
         this.authenticationService.currentUser.subscribe(x => {
           this.currentUser = x
@@ -37,6 +41,13 @@ export class AppComponent {
             duration: 3000
           });
         });
+
+        breakpointObserver.observe([
+          Breakpoints.XSmall,
+          Breakpoints.Small
+      ]).subscribe(result => {
+          this.mobile_screen = result.matches;
+      });
     }
 
     logout() {

@@ -5,9 +5,11 @@ import { AuthGuard } from './_helpers';
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 import { MainFormComponent } from './main-form/main-form.component';
 import { UserOrdersComponent } from './user-orders/user-orders.component';
+import { ContactComponent } from './contact/contact.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
+    { path: 'contact', component: ContactComponent },
     { path: 'schedule-form', component: MainFormComponent },
     { path: 'order-confirmation/:id', component: OrderConfirmationComponent },
     { path: 'view-orders/:id', component: UserOrdersComponent, canActivate: [AuthGuard]},

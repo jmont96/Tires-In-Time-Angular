@@ -1,51 +1,65 @@
 <div class="landing-page-container">
 
-    <div class="form-container-centered ">
-        <div class="container-title">
-            <div class="text">
-                <h1> Hi DLevvvvvv</h1>
-                <button mat-raised-button color="primary" routerLink="/schedule-form"> Schedule Now! </button>
+    <div class="form-container-centered">
+
+        <ng-template [ngIf]="mobile_screen" [ngIfElse]="bigScreen">
+            <div class="container-title">
+                <div class="text">
+                    <h1> Now your tires come to you!</h1>
+                    <button mat-raised-button class="schedule-home-button" color="primary" routerLink="/schedule-form"> Schedule Now! </button>
+                </div>
+                
             </div>
-            <div class="picture">
-                <img class="tire-photo" src="assets/tires_stack.png" >
-            </div> 
-        </div>
+        </ng-template>
 
-        <div class="container-process">
-            <h1>How It Works</h1>
-
-            <div class="home-page-how-it-works-container">
-                <div class="home-page-card">
-                    <div class="home-page-number">
-                        1
-                    </div>
-                    <p>
-                        You give us a time and date along with the tires your car needs replaced 
-                    </p>
-                    <img class="home-img" src="assets/home-page/form.png">
+        <ng-template #bigScreen>
+            <div class="container-title">
+                <div class="text">
+                    <h1> Now your tires come to you!</h1>
+                    <button mat-raised-button color="primary" routerLink="/schedule-form"> Schedule Now! </button>
                 </div>
-                <div class="home-page-card">
-                    <div class="home-page-number">
-                        2
-                    </div>
-
-                    <p>
-                        We change your tires while you are busy doing something else
-                    </p>
-                    <img class="home-img" src="assets/home-page/tire.png">
-                </div>
-                <div class="home-page-card">
-                    <div class="home-page-number">
-                        3
-                    </div>
-                    <p>
-                        You return home with new tires without having to think about it
-                    </p>
-                    <img class="home-img" src="assets/home-page/home.png">
+                <div class="picture">
+                    <img class="tire-photo" src="assets/tires_stack.png">
                 </div>
             </div>
 
-        </div>
+            <div class="container-process">
+                <h1>How It Works</h1>
+
+                <div class="home-page-how-it-works-container">
+                    <div class="home-page-card">
+                        <div class="home-page-number">
+                            1
+                        </div>
+                        <p>
+                            You give us a time and date along with the tires your car needs replaced
+                        </p>
+                        <img class="home-img" src="assets/home-page/form.png">
+                    </div>
+                    <div class="home-page-card">
+                        <div class="home-page-number">
+                            2
+                        </div>
+
+                        <p>
+                            We change your tires while you are busy doing something else
+                        </p>
+                        <img class="home-img" src="assets/home-page/tire.png">
+                    </div>
+                    <div class="home-page-card">
+                        <div class="home-page-number">
+                            3
+                        </div>
+                        <p>
+                            You return home with new tires without having to think about it
+                        </p>
+                        <img class="home-img" src="assets/home-page/home.png">
+                    </div>
+                </div>
+
+            </div>
+
+        </ng-template>
 
     </div>
 </div>

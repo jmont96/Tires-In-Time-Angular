@@ -70,7 +70,15 @@ export class PaymentDialogComponent implements OnInit {
   }
 
   get_final_cost() {
-    this.final_cost = (this.order_data.order.tire.cost * this.order_data.order.choices.length) + (15 * this.order_data.order.choices.length) + this.order_data.order.choices.length;
+    console.log("GETTING COST BABY");
+    const balancing_fee = 15 * this.order_data.order.choices.length;
+    const recycle_fee = this.order_data.order.choices.length;
+    
+    this.payment_service.getCostAfterMarkup(this.order_data.order.tire.cost * this.order_data.order.choices.length).subscribe(result => {
+      const final_price = result['price'];
+
+      this.final_cost = balancing_fee + recycle_fee + final_price;
+    })
   }
 
   buy() {

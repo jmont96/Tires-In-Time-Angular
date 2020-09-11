@@ -10,9 +10,7 @@ import { FormBuilder, FormGroup, Validators, FormControl, Form, ValidatorFn, Abs
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
 import { MapboxService } from '../_services/mapbox.service';
-import { lengthValidator } from './validators';
 import { MatDialog } from '@angular/material';
-import { TireSizeDialogComponent } from '../tire-size-dialog/tire-size-dialog.component';
 import { PaymentDialogComponent } from '../payment-dialog/payment-dialog.component'
 import { options } from '../_helpers/options_variables';
 import { MatStepper } from '@angular/material/stepper';
@@ -52,6 +50,7 @@ export class MainFormComponent implements OnInit {
     // Form Groups
     make_year_form: FormGroup;
     model_form: FormGroup;
+
     //trim_form: FormGroup;
     type_form: FormGroup;
     extra_info_form: FormGroup;
@@ -65,6 +64,7 @@ export class MainFormComponent implements OnInit {
     show_extra_makes_button = true;
     address_chosen_successfully = false;
     address_error = false;
+    show_low_stock = false;
 
     // Flag for responsive design
     mobile_screen: boolean;
@@ -86,6 +86,8 @@ export class MainFormComponent implements OnInit {
     tire_result_set = [];
     tire_type_filters = [];
     times_available = [];
+    displayed_tires = [];
+    in_stock_tires = [];
 
     // Pre determined option arrays for colors and such 
     color_options = options.colors;
@@ -219,7 +221,7 @@ export class MainFormComponent implements OnInit {
 
         const keys = Object.keys(this.final_order);
         const values = Object.values(this.final_order);
-       
+
         const icons = options.icons;
         this.final_page_array = [];
 
@@ -271,13 +273,6 @@ export class MainFormComponent implements OnInit {
         })
     }
 
-    /** Function to open the help dialog */
-    openDialog() {
-        const dialogRef = this.dialog.open(TireSizeDialogComponent);
-        dialogRef.afterClosed().subscribe(result => {
-
-        });
-    }
 
     /** Verifies that the user has selected the correct amount of tires */
     updateMatchCheck() {
@@ -291,14 +286,17 @@ export class MainFormComponent implements OnInit {
             this.tire_choice_form.controls.hidden_input.disable();
 
             if (!this.amount_matches_choice) {
-               
-                this.progress_value = 70;
+
+                this.progress_value = 70;  /* PROGRESS IS MADE */
                 this.tire_type_filters = [];
 
                 this.tire_service.getTireQuery(this.final_order.size, "", "3036").subscribe(data => {
                     this.tire_options = data;
                     this.tire_result_set = data;
-                    this.tire_type_filters.push("ALL");
+                    if (!this.tire_type_filters.includes("ALL")) {
+                        this.tire_type_filters.push("ALL");
+                    }
+                    
                     this.tire_options.forEach(element => {
                         if (!this.tire_type_filters.includes(element.type)) {
                             this.tire_type_filters.push(element.type);
@@ -306,7 +304,9 @@ export class MainFormComponent implements OnInit {
                         if (element.qoh < this.final_order.choices.length) {
                             element['low_stock'] = true;
                         }
-                        else {
+                        else if (element.qoh >= this.final_order.choices.length) {
+                            this.in_stock_tires.push(element);
+                            this.displayed_tires.push(element);
                             element['low_stock'] = false;
                         }
                     });
@@ -316,9 +316,17 @@ export class MainFormComponent implements OnInit {
                         console.log(error);
                     })
             }
-
             return true;
         }
+    }
+
+    show_low_stock_tires(){
+        this.show_low_stock = true;
+        this.displayed_tires = this.tire_options;
+    }
+    hide_low_stock_tires(){
+        this.show_low_stock = false;
+        this.displayed_tires = this.in_stock_tires;
     }
     /** Confirms that the user has selected an address and saves it to the order */
     onAutocompleteSelected(event: Event) {
@@ -330,14 +338,14 @@ export class MainFormComponent implements OnInit {
     }
     /** Updates the map marker with the user's selected address */
     onLocationSelected(event: Event) {
-       
+
         this.mapbox.updateMarker(event["latitude"], event["longitude"]);
         this.mapbox.get_distance_between_cordinates({
             latitude: event['latitude'],
             longitude: event["longitude"]
         }).subscribe(x => {
-           
-            if((x.routes[0].distance / 1609) <= 45){
+
+            if ((x.routes[0].distance / 1609) <= 45) {
                 this.address_chosen_successfully = true;
                 this.final_order.location = {
                     latitude: event['latitude'],
@@ -345,11 +353,11 @@ export class MainFormComponent implements OnInit {
                 }
                 this.address_error = false;
             }
-            else{
+            else {
                 this.address_chosen_successfully = false;
                 this.address_error = true;
             }
-            
+
         })
 
     }
@@ -435,6 +443,7 @@ export class MainFormComponent implements OnInit {
         this.make_year_form.valueChanges.subscribe(x => {
             if (x['make'] != "") {
                 this.final_order.make = x.make;
+                console.log(x.make)
 
                 this.vehicleService.getModelOptions(this.final_order.make).pipe(first())
                     .subscribe(
@@ -461,14 +470,14 @@ export class MainFormComponent implements OnInit {
         this.tire_size_form.valueChanges.subscribe(x => {
             this.final_order.size = x.width + "/" + x.ratio + "R" + x.rim
 
-            if(this.tire_size_form.status == "VALID"){
+            if (this.tire_size_form.status == "VALID") {
                 this.progress_value = 55;
             }
-           
+
         })
 
         this.tire_choice_form.controls.tire_amount.valueChanges.subscribe(x => {
-           
+
             if (x === 4) {
                 this.progress_value = 70;
                 this.check_all_options()
@@ -486,7 +495,7 @@ export class MainFormComponent implements OnInit {
         });
 
         this.extra_info_form.valueChanges.subscribe(x => {
-          
+
             this.final_order.color = x.color;
             if (x.date !== "") {
                 const date_arr = x.date.toString().split(' ');

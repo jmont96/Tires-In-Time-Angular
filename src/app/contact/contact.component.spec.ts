@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TireSizeDialogComponent } from './tire-size-dialog.component';
+import { ContactComponent } from './contact.component';
 
-describe('TireSizeDialogComponent', () => {
-  let component: TireSizeDialogComponent;
-  let fixture: ComponentFixture<TireSizeDialogComponent>;
+describe('ContactComponent', () => {
+  let component: ContactComponent;
+  let fixture: ComponentFixture<ContactComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TireSizeDialogComponent ]
+      declarations: [ ContactComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TireSizeDialogComponent);
+    fixture = TestBed.createComponent(ContactComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

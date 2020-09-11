@@ -44,3 +44,15 @@
     color: var(--custom-text-light);
     font-size: 50px;
 }
+
+@media only screen and (max-width: 768px) {
+    .container-title {
+        margin-top: 24px;
+    }
+    .container-title .text {
+        font-size: 2.5vw;
+        color: var(--custom-text-dark);
+        max-width: 80%;
+        padding-top: 60px;
+    }
+}

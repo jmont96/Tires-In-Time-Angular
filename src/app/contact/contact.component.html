@@ -1,0 +1,50 @@
+<div class="form-container-centered">
+
+    <br>
+    <br>
+    <h1> Contact Tires In Time</h1>
+
+    <div class="horizontal-aligned-container">
+        <div class="random-red-circle">
+        </div>
+        <div class="random-red-circle">
+        </div>
+        <div class="random-red-circle">
+        </div>
+    </div>
+
+
+    <form class="responsive-width" [formGroup]="contact_form" (ngSubmit)="onSubmitContactForm()">
+        
+            <h3>Name</h3>
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Name</mat-label>
+                    <input matInput placeholder="John Doe" formControlName="name">
+                    <mat-icon matSuffix>looks_one</mat-icon>
+                </mat-form-field>
+            </p>
+            <h3>Email Address</h3>
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput placeholder="johndoe@website.com" formControlName="email">
+                    <mat-icon matSuffix>mail</mat-icon>
+                </mat-form-field>
+            </p>
+            <h3>Message</h3>
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Message</mat-label>
+                    <textarea matInput placeholder="Write message here..." formControlName="message"></textarea>
+                    <mat-icon matSuffix>looks_one</mat-icon>
+                </mat-form-field>
+            </p>
+
+            <button class="red-button-full" color="primary" mat-flat-button mat-dialog-close type="submit">
+                Submit
+            </button>
+        
+    </form>
+
+</div>

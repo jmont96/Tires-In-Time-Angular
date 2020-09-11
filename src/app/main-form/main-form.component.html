@@ -1,69 +1,369 @@
 <div class="form-container-main">
-
-
     <ng-template [ngIf]="mobile_screen" [ngIfElse]="bigScreen">
-        <!-- <mat-vertical-stepper linear>
+        <div class="progress_bar_container">
+            <mat-progress-bar class="example-margin" color="primary" [value]="progress_value">
+            </mat-progress-bar>
+        </div>
+        <h2 style="text-align: center;"> Scheduling Form</h2>
+        <mat-vertical-stepper #stepper>
+            <mat-step [stepControl]="make_year_form">
+                <form [formGroup]="make_year_form">
+                    <ng-template matStepLabel>Make</ng-template>
+                    <h3>Vehicle Make</h3>
+                    <p>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Select a Make</mat-label>
+                            <mat-select formControlName="make">
+                                <mat-option *ngFor="let make of make_options" [value]="make">
+                                    {{ make }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </p>
+
+                    <ng-template [ngIf]="show_extra_makes_button">
+                        <button mat-button type="button" (click)="mergeMakeOptions()">I don't see the make of my
+                            car...</button>
+                    </ng-template>
 
 
-        <mat-step [stepControl]="make_year_form">
-            <form [formGroup]="make_year_form">
-                <ng-template matStepLabel>Make and Year</ng-template>
-                <p>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Vehicle Make</mat-label>
-                        <input matInput placeholder="First Name" formControlName="make"
-                            [ngClass]="{ 'is-invalid': submitted && f.make.errors }">
-                        <mat-icon matSuffix>car</mat-icon>
+                    <div class="stepper-next">
+
+                        <button mat-mini-fab color="primary" matStepperNext>
+                            <mat-icon>navigate_next</mat-icon>
+                        </button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step [stepControl]="model_form">
+                <form [formGroup]="model_form">
+
+                    <ng-template matStepLabel>Model</ng-template>
+                    <h3>Vehicle Make </h3>
+                    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                        formControlName="model">
+                        <mat-radio-button color="primary" class="example-radio-button card-input-element"
+                            *ngFor="let model of model_options" [value]="model">
+                            {{model}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                    <div class="stepper-next">
+                        <button mat-mini-fab color="primary" matStepperPrevious>
+                            <mat-icon>navigate_before</mat-icon>
+                        </button>
+                        &nbsp;
+                        &nbsp;
+
+                        <button mat-mini-fab color="primary" matStepperNext>
+                            <mat-icon>navigate_next</mat-icon>
+                        </button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step [stepControl]="tire_size_form">
+                <img class="form-image" src="assets/how-to-photo.png">
+                <form [formGroup]="tire_size_form">
+                    <ng-template matStepLabel>Size</ng-template>
+                    <h3> Enter the size of the tire you need</h3>
+                    <div class="size-form-field-container">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Width</mat-label>
+                            <input matInput placeholder="245" formControlName="width">
+                        </mat-form-field>
+                        <h2>/</h2>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Profile</mat-label>
+                            <input matInput placeholder="50" formControlName="ratio">
+                        </mat-form-field>
+
+                        <h2> R</h2>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Wheel Size</mat-label>
+                            <input matInput placeholder="15" formControlName="rim">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="stepper-next">
+                        <button mat-mini-fab color="primary" matStepperPrevious>
+                            <mat-icon>navigate_before</mat-icon>
+                        </button>
+                        &nbsp;
+                        &nbsp;
+                        <button mat-mini-fab color="primary" matStepperNext>
+                            <mat-icon>navigate_next</mat-icon>
+                        </button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <!--------------------------------- CHOICE STEP --------------------------------->
+
+            <mat-step [stepControl]="tire_choice_form">
+                <form [formGroup]="tire_choice_form">
+                    <ng-template matStepLabel>Amount</ng-template>
+
+                    <h3> Tire Quantity</h3>
+
+                    <input type="hidden" formControlName="hidden_input">
 
 
+                    <ng-template [ngIf]="other_amount_selected" [ngIfElse]="otherOptions">
+                        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                            formControlName="tire_amount">
+                            <mat-radio-button color="primary" class="example-radio-button card-input-element" value="2">
+                                2
+                            </mat-radio-button>
+                            <mat-radio-button color="primary" class="example-radio-button card-input-element" value="4"
+                                (click)="check_all_options()">
+                                4
+                            </mat-radio-button>
+                        </mat-radio-group>
+                        <mat-divider style="width: 200px; margin: auto; margin-bottom: 24px; margin-top: 16px;">
+                        </mat-divider>
+                        <div style="display:flex; justify-content: center;">
+                            <button mat-button style="margin: auto;" type="button" (click)="openOtherOptions()">Other
+                                Amount</button>
+                        </div>
+
+                    </ng-template>
+
+
+                    <ng-template #otherOptions>
+                        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                            formControlName="tire_amount">
+                            <mat-radio-button color="primary" class="example-radio-button card-input-element"
+                                *ngFor="let a of tire_amount_options" [value]="a">
+                                {{a}}
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </ng-template>
+
+                    <br>
+                    <h3>Choose Tires Needed</h3>
+
+                    <div class="choice-grid">
+                        <div class="choice-col">
+                            <mat-checkbox color="primary" [checked]="tires_options.lf" labelPosition="before"
+                                (change)="updateTireChoice($event, 'Left Front', 'lf')">Left
+                                Front</mat-checkbox>
+                            <mat-checkbox color="primary" [checked]="tires_options.rf"
+                                (change)="updateTireChoice($event, 'Right Front', 'rf')">Right Front </mat-checkbox>
+
+                        </div>
+                        <div class="choice-col mobile-column-override">
+                            <img src="assets/car-photo-aerial.jpg" class="car-img form-image">
+
+                        </div>
+                        <div class="choice-col">
+                            <mat-checkbox color="primary" [checked]="tires_options.lb" labelPosition="before"
+                                (change)="updateTireChoice($event, 'Left Back', 'lb')">Left
+                                Back
+                            </mat-checkbox>
+                            <mat-checkbox color="primary" [checked]="tires_options.rb"
+                                (change)="updateTireChoice($event, 'Right Back', 'rb')">Right Back</mat-checkbox>
+                        </div>
+                        <div class="choice-col">
+                            <mat-checkbox color="primary" (change)="updateTireChoice($event, 'Spare')">Spare Tire
+                            </mat-checkbox>
+                        </div>
+                    </div>
+                    <br><br>
+
+                    <div class="stepper-next">
+                        <button mat-mini-fab color="primary" matStepperPrevious>
+                            <mat-icon>navigate_before</mat-icon>
+                        </button>
+                        &nbsp;
+                        &nbsp;
+                        <button mat-mini-fab color="primary" matStepperNext>
+                            <mat-icon>navigate_next</mat-icon>
+                        </button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <!------------------------------------------------------------------------------->
+
+            <!-- ------------------------------- TIRE SELECTION STEP --------------------------------->
+            <mat-step [stepControl]="tire_form">
+                <form [formGroup]="tire_form">
+                    <ng-template matStepLabel>Tire</ng-template>
+                    <span> Filters: </span>
+                    <div class="segment-button-scroll">
+                        <mat-button-toggle-group #group="matButtonToggleGroup">
+
+                            <mat-button-toggle *ngFor="let chip of tire_type_filters" value="{{chip}}"
+                                (change)="filter_by_type($event.value)">
+                                <span> {{ chip }}</span>
+                            </mat-button-toggle>
+
+                        </mat-button-toggle-group>
+                    </div>
+                    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                        formControlName="tire_id_selection">
+                        <mat-radio-button color="primary" [ngClass]="{'gradient-covered' : tire.low_stock}"
+                            class="example-radio-button-2 card-input-element" *ngFor="let tire of tire_options"
+                            [value]="tire">
+                            <!-- <ng-template [ngIf]="tire.low_stock">
+                                <div class="overlay"></div>
+                            </ng-template> -->
+                            <div class="tire-selection-image"></div>
+
+                            <div class="tire-card-content-container">
+                                <div class="tire-card-contents">
+
+                                    <h3>{{tire.article_desc }}</h3>
+                                    <span style="line-height: 0px; font-size: 12px;" class="text-grey">
+                                        {{ tire.type }}</span>
+                                    <br>
+                                    <span class="text-red"><b>${{ tire.cost }}</b></span>
+
+                                    <ng-template [ngIf]="tire.low_stock">
+                                        <p style="color: red" class="red-text"> Only {{ tire.qoh }} in stock</p>
+                                    </ng-template>
+                                    <ng-template [ngIf]="!tire.low_stock">
+                                        <p style="color: white" class="white-text"> Only {{ tire.qoh }} in stock</p>
+                                    </ng-template>
+
+                                </div>
+                                <div class="tire-fab-container">
+                                    <button mat-mini-fab (click)="open_tire_info_dialog(tire)"
+                                        class="tire-card-info-btn" style="margin-top: auto;"
+                                        aria-label="Example icon button with a filter list icon">
+                                        <mat-icon>info</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </mat-radio-button>
+                    </mat-radio-group>
+                    <div class="stepper-next">
+                        <button mat-mini-fab color="primary" matStepperPrevious>
+                            <mat-icon>navigate_before</mat-icon>
+                        </button>
+                        &nbsp;
+                        &nbsp;
+                        <button mat-mini-fab color="primary" matStepperNext>
+                            <mat-icon>navigate_next</mat-icon>
+                        </button>
+                    </div>
+                </form>
+            </mat-step>
+
+
+
+            <!--------------------------------- EXTRA INFO STEP --------------------------------->
+
+            <mat-step [stepControl]="extra_info_form">
+                <form [formGroup]="extra_info_form">
+                    <ng-template matStepLabel>Details</ng-template>
+                    <h3>Extra Information For Your Order</h3>
+                    <h4>Car Color: {{ final_order.color}} </h4>
+
+                    <div class="example-radio-group color-radio-group">
+                        <label *ngFor="let c of color_options">
+                            <input type="radio" formControlName="color" class="card-input-element" [value]="c.value" />
+                            <div class="card-input" [style.background]="c.hex">
+                            </div>
+                        </label>
+                    </div>
+                    <br>
+                    <br>
+
+                    <h3>License Plate Number</h3>
+                    <p>
+                        <mat-form-field appearance="outline">
+                            <mat-label>License Plate Number</mat-label>
+                            <input matInput placeholder="e.g., 1234567" formControlName="license_number">
+                            <mat-icon matSuffix>looks_one</mat-icon>
+                        </mat-form-field>
+                    </p>
+
+                    <h3>Replacement Date & Time</h3>
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Date</mat-label>
+                        <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="date">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker touchUi #picker></mat-datepicker>
                     </mat-form-field>
-                </p>
-                <p>
+                    <br>
+                    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                        formControlName="time">
+                        <mat-radio-button color="primary" class="example-radio-button card-input-element"
+                            *ngFor="let time of times_available" [value]="time">
+                            {{time}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+
+                    <h3>Address of Appointment</h3>
+                    <p class="description-text">
+                        Enter the address of the location that you want the appointment done.
+                    </p>
+                    <ng-template [ngIf]="address_error">
+                        <div class="error-container">
+                            <p style="font-size: 12px;">Unfortauntely, we don't serve your area. Try another
+                                location
+                                closer to Arlington, VA.
+                            </p>
+                        </div>
+                    </ng-template>
                     <mat-form-field appearance="outline">
-                        <mat-label>Vehicle Year</mat-label>
-                        <input matInput placeholder="First Name" formControlName="make"
-                            [ngClass]="{ 'is-invalid': submitted && f.year.errors }">
-                        <mat-icon matSuffix>calendar</mat-icon>
-
-
+                        <mat-label>Address</mat-label>
+                        <input matInput matGoogleMapsAutocomplete [country]="us"
+                            (onAutocompleteSelected)="onAutocompleteSelected($event)"
+                            (onLocationSelected)="onLocationSelected($event)" formControlName="address">
+                        <mat-icon matSuffix>room</mat-icon>
                     </mat-form-field>
-                </p>
-                <div>
-                    <button mat-button matStepperNext>Next</button>
+                    <div class="map-wrap">
+                        <div class="map-div">
+                            <map-box></map-box>
+                        </div>
+                    </div>
+
+
+                    <div class="stepper-next">
+                        <button mat-mini-fab color="primary" matStepperPrevious>
+                            <mat-icon>navigate_before</mat-icon>
+                        </button>
+                        &nbsp;
+                        &nbsp;
+                        <button [disabled]="address_error" mat-mini-fab color="primary" matStepperNext>
+                            <mat-icon>navigate_next</mat-icon>
+                        </button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <!------------------------------------------------------------------------------->
+
+            <!------------------------------ CONFIRMATION STEP ------------------------------>
+
+            <mat-step>
+                <ng-template matStepLabel>You're Done!</ng-template>
+                <h3>Your Completed Order:</h3>
+                <p>You are now done. Review your results.</p>
+                <mat-list class="order-results-list">
+
+                    <mat-list-item *ngFor="let item of final_page_array">
+                        <mat-icon mat-list-icon>{{item.icon}}</mat-icon>
+                        <div mat-line><b>{{item.key}}</b>: &nbsp;{{item.val}}</div>
+
+                        <mat-divider></mat-divider>
+                    </mat-list-item>
+
+                </mat-list>
+
+                <div style="display: flex; justify-content: center;">
+                    <button mat-flat-button color="primary" type="button" (click)="go_to_payment()">Proceed To
+                        Payment</button>
+
                 </div>
-            </form>
-        </mat-step>
+            </mat-step>
 
 
-
-        <mat-step [stepControl]="model_form">
-            <form [formGroup]="model_form">
-                <ng-template matStepLabel>Fill out your address</ng-template>
-                <mat-form-field>
-                    <mat-label>Address</mat-label>
-                    <input matInput formControlName="model" placeholder="e.g., 'Pilot'" required>
-                </mat-form-field>
-                <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
-                </div>
-            </form>
-        </mat-step>
-
-
-
-        <mat-step>
-            <ng-template matStepLabel>Done</ng-template>
-            <p>You are now done.</p>
-            <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button (click)="stepper.reset()">Reset</button>
-            </div>
-        </mat-step>
-
-
-
-    </mat-vertical-stepper> -->
+        </mat-vertical-stepper>
     </ng-template>
 
 
@@ -77,376 +377,375 @@
         </div>
         <h2 style="text-align: center;"> Scheduling Form</h2>
 
-            <mat-horizontal-stepper #stepper linear>
+        <mat-horizontal-stepper #stepper linear>
 
-                <!------------------------------ MAKE AND YEAR STEP ------------------------------>
+            <!------------------------------ MAKE AND YEAR STEP ------------------------------>
 
-                <mat-step [stepControl]="make_year_form">
-                    <form [formGroup]="make_year_form" (ngSubmit)="onSubmitMake()">
-                        <ng-template matStepLabel>Make</ng-template>
+            <mat-step [stepControl]="make_year_form">
+                <form [formGroup]="make_year_form">
+                    <ng-template matStepLabel>Make</ng-template>
 
-                        <h3>Vehicle Make</h3>
-                        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-                            formControlName="make">
-                            <mat-radio-button color="primary" class="example-radio-button card-input-element"
-                                *ngFor="let make of make_options" [value]="make">
-                                <img src="assets/car_logos/{{make}}-logo.png" width="60px">
-                                <br>
-                                {{make}}
-                            </mat-radio-button>
-                        </mat-radio-group>
-                        <ng-template [ngIf]="show_extra_makes_button">
-                            <button mat-button type="button" (click)="mergeMakeOptions()">I don't see the make of my
-                                car...</button>
-                        </ng-template>
-
-
-                        <div class="stepper-next">
-
-                            <button mat-fab color="primary" matStepperNext>
-                                <mat-icon>navigate_next</mat-icon>
-                            </button>
-                        </div>
-                    </form>
-                </mat-step>
-
-                <!------------------------------------------------------------------------------->
+                    <h3>Vehicle Make</h3>
+                    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                        formControlName="make">
+                        <mat-radio-button color="primary" class="example-radio-button card-input-element"
+                            *ngFor="let make of make_options" [value]="make">
+                            <img src="assets/car_logos/{{make}}-logo.png" width="60px">
+                            <br>
+                            {{make}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                    <ng-template [ngIf]="show_extra_makes_button">
+                        <button mat-button type="button" (click)="mergeMakeOptions()">I don't see the make of my
+                            car...</button>
+                    </ng-template>
 
 
-                <!------------------------------ MODEL STEP ------------------------------>
+                    <div class="stepper-next">
 
-                <mat-step [stepControl]="model_form">
-                    <form [formGroup]="model_form" (ngSubmit)="onSubmitModel()">
-                        <ng-template matStepLabel>Model</ng-template>
-                        <h3>Vehicle Make</h3>
-                        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-                            formControlName="model">
-                            <mat-radio-button color="primary" class="example-radio-button card-input-element"
-                                *ngFor="let model of model_options" [value]="model">
-                                {{model}}
-                            </mat-radio-button>
-                        </mat-radio-group>
-                        <div class="stepper-next">
-                            <button mat-fab color="primary" matStepperPrevious>
-                                <mat-icon>navigate_before</mat-icon>
-                            </button>
-                            &nbsp;
-                            &nbsp;
-                            <button mat-fab color="primary" matStepperNext>
-                                <mat-icon>navigate_next</mat-icon>
-                            </button>
-                        </div>
-                    </form>
-                </mat-step>
-
-                <!------------------------------------------------------------------------------->
-
-
-                <!--------------------------------- SIZE CONFIRMATION STEP --------------------------------->
-
-                <mat-step [stepControl]="tire_size_form">
-                    <form [formGroup]="tire_size_form" (ngSubmit)="onSubmitSize()">
-                        <ng-template matStepLabel>Size</ng-template>
-                        <h3> Enter the size of the tire you need</h3>
-                        <div class="size-form-field-container">
-                            <mat-form-field appearance="outline">
-                                <mat-label>Width</mat-label>
-                                <input matInput placeholder="245" formControlName="width">
-                            </mat-form-field>
-                            <h2>/</h2>
-                            <mat-form-field appearance="outline">
-                                <mat-label>Aspect Ratio</mat-label>
-                                <input matInput placeholder="50" formControlName="ratio">
-                            </mat-form-field>
-
-                            <h2> R</h2>
-                            <mat-form-field appearance="outline">
-                                <mat-label>Rim Diameter</mat-label>
-                                <input matInput placeholder="15" formControlName="rim">
-                            </mat-form-field>
-                        </div>
-                        <div class="example-button-row">
-                            <button mat-button type="button" (click)="openDialog()">How do I find this?</button>
-                        </div>
-                        <div class="stepper-next">
-                            <button mat-fab color="primary" matStepperPrevious>
-                                <mat-icon>navigate_before</mat-icon>
-                            </button>
-                            &nbsp;
-                            &nbsp;
-                            <button mat-fab color="primary" matStepperNext>
-                                <mat-icon>navigate_next</mat-icon>
-                            </button>
-                        </div>
-                    </form>
-                </mat-step>
-
-                <!------------------------------------------------------------------------------->
-
-
-                <!--------------------------------- CHOICE STEP --------------------------------->
-
-                <mat-step [stepControl]="tire_choice_form">
-                    <form [formGroup]="tire_choice_form" (ngSubmit)="onSubmitChoice()">
-                        <ng-template matStepLabel>Amount</ng-template>
-
-                        <h3> Tire Quantity</h3>
-
-                        <input type="hidden" formControlName="hidden_input">
-
-
-                        <ng-template [ngIf]="other_amount_selected" [ngIfElse]="otherOptions">
-                            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-                                formControlName="tire_amount">
-                                <mat-radio-button color="primary" class="example-radio-button card-input-element"
-                                    value="2">
-                                    2
-                                </mat-radio-button>
-                                <mat-radio-button color="primary" class="example-radio-button card-input-element"
-                                    value="4" (click)="check_all_options()">
-                                    4
-                                </mat-radio-button>
-                            </mat-radio-group>
-                            <mat-divider style="width: 200px; margin: auto; margin-bottom: 24px; margin-top: 16px;">
-                            </mat-divider>
-                            <button mat-button type="button" (click)="openOtherOptions()">Other Amount</button>
-                        </ng-template>
-
-
-                        <ng-template #otherOptions>
-                            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-                                formControlName="tire_amount">
-                                <mat-radio-button color="primary" class="example-radio-button card-input-element"
-                                    *ngFor="let a of tire_amount_options" [value]="a">
-                                    {{a}}
-                                </mat-radio-button>
-                            </mat-radio-group>
-                        </ng-template>
-
-                        <br><br><br><br><br>
-                        <h3>Choose Tires Needed</h3>
-
-                        <div class="choice-grid">
-                            <div class="choice-col">
-                                <mat-checkbox color="primary" [checked]="tires_options.lf" style="margin-left: 42px;"
-                                    labelPosition="before" (change)="updateTireChoice($event, 'Left Front', 'lf')">Left
-                                    Front</mat-checkbox>
-                                <mat-checkbox color="primary" [checked]="tires_options.lb" style="margin-left: 42px;"
-                                    labelPosition="before" (change)="updateTireChoice($event, 'Left Back', 'lb')">Left
-                                    Back
-                                </mat-checkbox>
-                            </div>
-                            <div class="choice-col">
-                                <img src="assets/car-photo-aerial.jpg" class="car-img">
-                                <mat-checkbox color="primary" (change)="updateTireChoice($event, 'Spare')">Spare Tire
-                                </mat-checkbox>
-                            </div>
-                            <div class="choice-col">
-                                <mat-checkbox color="primary" [checked]="tires_options.rf"
-                                    (change)="updateTireChoice($event, 'Right Front', 'rf')">Right Front </mat-checkbox>
-                                <mat-checkbox color="primary" [checked]="tires_options.rb"
-                                    (change)="updateTireChoice($event, 'Right Back', 'rb')">Right Back</mat-checkbox>
-                            </div>
-                        </div>
-                        <br><br><br><br>
-
-                        <div class="stepper-next">
-                            <button mat-fab color="primary" matStepperPrevious>
-                                <mat-icon>navigate_before</mat-icon>
-                            </button>
-                            &nbsp;
-                            &nbsp;
-                            <button mat-fab color="primary" matStepperNext>
-                                <mat-icon>navigate_next</mat-icon>
-                            </button>
-                        </div>
-                    </form>
-                </mat-step>
-
-                <!------------------------------------------------------------------------------->
-
-
-                <!-- ------------------------------- TIRE SELECTION STEP --------------------------------->
-                <mat-step [stepControl]="tire_form">
-                    <form [formGroup]="tire_form" (ngSubmit)="onSubmitTires()">
-                        <ng-template matStepLabel>Tire</ng-template>
-                        <span> Filters: </span>
-                        <mat-button-toggle-group #group="matButtonToggleGroup">
-
-                            <mat-button-toggle *ngFor="let chip of tire_type_filters" value="{{chip}}"
-                                (change)="filter_by_type($event.value)">
-                                <span> {{ chip }}</span>
-                            </mat-button-toggle>
-
-                        </mat-button-toggle-group>
-                        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-                            formControlName="tire_id_selection">
-                            <mat-radio-button color="primary" [ngClass]="{'gradient-covered' : tire.low_stock}"
-                                class="example-radio-button-2 card-input-element" *ngFor="let tire of tire_options"
-                                [value]="tire">
-                                <ng-template [ngIf]="tire.low_stock">
-                                    <div class="overlay"></div>
-                                </ng-template>
-                                <div class="tire-selection-image"></div>
-
-                                <div class="tire-card-content-container">
-                                    <div class="tire-card-contents">
-
-                                        <h3>{{tire.article_desc }}</h3>
-                                        <span style="line-height: 0px; font-size: 12px;" class="text-grey">
-                                            {{ tire.type }}</span>
-                                        <br>
-                                        <span class="text-red"><b>${{ tire.cost }}</b></span>
-
-                                        <ng-template [ngIf]="tire.low_stock">
-                                            <p style="color: red" class="red-text"> Only {{ tire.qoh }} in stock</p>
-                                        </ng-template>
-                                        <ng-template [ngIf]="!tire.low_stock">
-                                            <p style="color: white" class="white-text"> Only {{ tire.qoh }} in stock</p>
-                                        </ng-template>
-
-                                    </div>
-                                    <div class="tire-fab-container">
-                                        <button mat-mini-fab (click)="open_tire_info_dialog(tire)"
-                                            class="tire-card-info-btn" style="margin-top: auto;"
-                                            aria-label="Example icon button with a filter list icon">
-                                            <mat-icon>info</mat-icon>
-                                        </button>
-                                    </div>
-                                </div>
-
-                            </mat-radio-button>
-                        </mat-radio-group>
-                        <div class="stepper-next">
-                            <button mat-fab color="primary" matStepperPrevious>
-                                <mat-icon>navigate_before</mat-icon>
-                            </button>
-                            &nbsp;
-                            &nbsp;
-                            <button mat-fab color="primary" matStepperNext>
-                                <mat-icon>navigate_next</mat-icon>
-                            </button>
-                        </div>
-                    </form>
-                </mat-step>
-
-                <!--------------------------------- EXTRA INFO STEP --------------------------------->
-
-                <mat-step [stepControl]="extra_info_form">
-                    <form [formGroup]="extra_info_form" (ngSubmit)="onSubmitExtra()">
-                        <ng-template matStepLabel>Details</ng-template>
-                        <h3>Extra Information For Your Order</h3>
-                        <h4>Car Color: {{ final_order.color}} </h4>
-
-                        <div class="example-radio-group color-radio-group">
-                            <label *ngFor="let c of color_options">
-                                <input type="radio" formControlName="color" class="card-input-element"
-                                    [value]="c.value" />
-                                <div class="card-input" [style.background]="c.hex">
-                                </div>
-                            </label>
-                        </div>
-                        <br>
-                        <br>
-
-                        <h3>License Plate Number</h3>
-                        <p>
-                            <mat-form-field appearance="outline">
-                                <mat-label>License Plate Number</mat-label>
-                                <input type="number" matInput placeholder="e.g., 1234567"
-                                    formControlName="license_number">
-                                <mat-icon matSuffix>looks_one</mat-icon>
-                            </mat-form-field>
-                        </p>
-
-                        <h3>Replacement Date & Time</h3>
-                        <mat-form-field appearance="outline" class="example-full-width">
-                            <mat-label>Date</mat-label>
-                            <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="date">
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker touchUi #picker></mat-datepicker>
-                        </mat-form-field>
-                        <br>
-                        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-                            formControlName="time">
-                            <mat-radio-button color="primary" class="example-radio-button card-input-element"
-                                *ngFor="let time of times_available" [value]="time">
-                                {{time}}
-                            </mat-radio-button>
-                        </mat-radio-group>
-
-                        <h3>Address of Appointment</h3>
-                        <p class="description-text">
-                            Enter the address of the location that you want the appointment done.
-                        </p>
-                        <ng-template [ngIf]="address_error">
-                            <div class="error-container">
-                                <p style="font-size: 12px;">Unfortauntely, we don't serve your area. Try another
-                                    location
-                                    closer to Arlington, VA.
-                                </p>
-                            </div>
-                        </ng-template>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Address</mat-label>
-                            <input matInput matGoogleMapsAutocomplete [country]="de"
-                                (onAutocompleteSelected)="onAutocompleteSelected($event)"
-                                (onLocationSelected)="onLocationSelected($event)" formControlName="address">
-                            <mat-icon matSuffix>room</mat-icon>
-                        </mat-form-field>
-                        <div class="map-wrap">
-                            <div class="map-div">
-                                <map-box></map-box>
-                            </div>
-                        </div>
-
-
-                        <div class="stepper-next">
-                            <button mat-fab color="primary" matStepperPrevious>
-                                <mat-icon>navigate_before</mat-icon>
-                            </button>
-                            &nbsp;
-                            &nbsp;
-                            <button [disabled]="address_error" mat-fab color="primary" matStepperNext>
-                                <mat-icon>navigate_next</mat-icon>
-                            </button>
-                        </div>
-                    </form>
-                </mat-step>
-
-                <!------------------------------------------------------------------------------->
-
-
-
-                <!------------------------------ CONFIRMATION STEP ------------------------------>
-
-                <mat-step>
-                    <ng-template matStepLabel>You're Done!</ng-template>
-                    <h3>Your Completed Order:</h3>
-                    <p>You are now done. Review your results.</p>
-                    <mat-list class="order-results-list">
-
-                        <mat-list-item *ngFor="let item of final_page_array">
-                            <mat-icon mat-list-icon>{{item.icon}}</mat-icon>
-                            <div mat-line><b>{{item.key}}</b>: &nbsp;{{item.val}}</div>
-
-                            <mat-divider></mat-divider>
-                        </mat-list-item>
-
-                    </mat-list>
-
-                    <div>
-                        <button mat-flat-button color="primary" type="button" (click)="go_to_payment()">Proceed To
-                            Payment</button>
-
+                        <button mat-fab color="primary" matStepperNext>
+                            <mat-icon>navigate_next</mat-icon>
+                        </button>
                     </div>
-                </mat-step>
+                </form>
+            </mat-step>
 
-                <!------------------------------------------------------------------------------->
+            <!------------------------------------------------------------------------------->
 
 
-            </mat-horizontal-stepper>
+            <!------------------------------ MODEL STEP ------------------------------>
 
-        
+            <mat-step [stepControl]="model_form">
+                <form [formGroup]="model_form">
+
+                    <ng-template matStepLabel>Model</ng-template>
+                    <h3>Vehicle Make </h3>
+                    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                        formControlName="model">
+                        <mat-radio-button color="primary" class="example-radio-button card-input-element"
+                            *ngFor="let model of model_options" [value]="model">
+                            {{model}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                    <div class="stepper-next">
+                        <button mat-fab color="primary" matStepperPrevious>
+                            <mat-icon>navigate_before</mat-icon>
+                        </button>
+                        &nbsp;
+                        &nbsp;
+
+                        <button mat-fab color="primary" matStepperNext>
+                            <mat-icon>navigate_next</mat-icon>
+                        </button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <!------------------------------------------------------------------------------->
+
+
+            <!--------------------------------- SIZE CONFIRMATION STEP --------------------------------->
+
+            <mat-step [stepControl]="tire_size_form">
+                <img src="assets/how-to-photo.png">
+                <form [formGroup]="tire_size_form">
+                    <ng-template matStepLabel>Size</ng-template>
+                    <h3> Enter the size of the tire you need</h3>
+                    <div class="size-form-field-container">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Width</mat-label>
+                            <input matInput placeholder="245" formControlName="width">
+                        </mat-form-field>
+                        <h2>/</h2>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Profile</mat-label>
+                            <input matInput placeholder="50" formControlName="ratio">
+                        </mat-form-field>
+
+                        <h2> R</h2>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Wheel Size</mat-label>
+                            <input matInput placeholder="15" formControlName="rim">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="stepper-next">
+                        <button mat-fab color="primary" matStepperPrevious>
+                            <mat-icon>navigate_before</mat-icon>
+                        </button>
+                        &nbsp;
+                        &nbsp;
+                        <button mat-fab color="primary" matStepperNext>
+                            <mat-icon>navigate_next</mat-icon>
+                        </button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <!------------------------------------------------------------------------------->
+
+
+            <!--------------------------------- CHOICE STEP --------------------------------->
+
+            <mat-step [stepControl]="tire_choice_form">
+                <form [formGroup]="tire_choice_form">
+                    <ng-template matStepLabel>Amount</ng-template>
+
+                    <h3> Tire Quantity</h3>
+
+                    <input type="hidden" formControlName="hidden_input">
+
+
+                    <ng-template [ngIf]="other_amount_selected" [ngIfElse]="otherOptions">
+                        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                            formControlName="tire_amount">
+                            <mat-radio-button color="primary" class="example-radio-button card-input-element" value="2">
+                                2
+                            </mat-radio-button>
+                            <mat-radio-button color="primary" class="example-radio-button card-input-element" value="4"
+                                (click)="check_all_options()">
+                                4
+                            </mat-radio-button>
+                        </mat-radio-group>
+                        <mat-divider style="width: 200px; margin: auto; margin-bottom: 24px; margin-top: 16px;">
+                        </mat-divider>
+                        <button mat-button type="button" (click)="openOtherOptions()">Other Amount</button>
+                    </ng-template>
+
+
+                    <ng-template #otherOptions>
+                        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                            formControlName="tire_amount">
+                            <mat-radio-button color="primary" class="example-radio-button card-input-element"
+                                *ngFor="let a of tire_amount_options" [value]="a">
+                                {{a}}
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </ng-template>
+
+                    <br><br><br><br><br>
+                    <h3>Choose Tires Needed</h3>
+
+                    <div class="choice-grid">
+                        <div class="choice-col">
+                            <mat-checkbox color="primary" [checked]="tires_options.lf" style="margin-left: 42px;"
+                                labelPosition="before" (change)="updateTireChoice($event, 'Left Front', 'lf')">Left
+                                Front</mat-checkbox>
+                            <mat-checkbox color="primary" [checked]="tires_options.lb" style="margin-left: 42px;"
+                                labelPosition="before" (change)="updateTireChoice($event, 'Left Back', 'lb')">Left
+                                Back
+                            </mat-checkbox>
+                        </div>
+                        <div class="choice-col">
+                            <img src="assets/car-photo-aerial.jpg" class="car-img">
+                            <mat-checkbox color="primary" (change)="updateTireChoice($event, 'Spare')">Spare Tire
+                            </mat-checkbox>
+                        </div>
+                        <div class="choice-col">
+                            <mat-checkbox color="primary" [checked]="tires_options.rf"
+                                (change)="updateTireChoice($event, 'Right Front', 'rf')">Right Front </mat-checkbox>
+                            <mat-checkbox color="primary" [checked]="tires_options.rb"
+                                (change)="updateTireChoice($event, 'Right Back', 'rb')">Right Back</mat-checkbox>
+                        </div>
+                    </div>
+                    <br><br><br><br>
+
+                    <div class="stepper-next">
+                        <button mat-fab color="primary" matStepperPrevious>
+                            <mat-icon>navigate_before</mat-icon>
+                        </button>
+                        &nbsp;
+                        &nbsp;
+                        <button mat-fab color="primary" matStepperNext>
+                            <mat-icon>navigate_next</mat-icon>
+                        </button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <!------------------------------------------------------------------------------->
+
+
+            <!-- ------------------------------- TIRE SELECTION STEP --------------------------------->
+            <mat-step [stepControl]="tire_form">
+                <form [formGroup]="tire_form">
+                    <ng-template matStepLabel>Tire</ng-template>
+                    <span> Filters: </span>
+                    <mat-button-toggle-group #group="matButtonToggleGroup">
+
+                        <mat-button-toggle *ngFor="let chip of tire_type_filters" value="{{chip}}"
+                            (change)="filter_by_type($event.value)">
+                            <span> {{ chip }}</span>
+                        </mat-button-toggle>
+
+                    </mat-button-toggle-group>
+                    <br>
+                    <ng-template [ngIf]="!show_low_stock">
+                        <button mat-button type="button" (click)="show_low_stock_tires()">Show low stock
+                            tires</button>
+                    </ng-template>
+                    <ng-template [ngIf]="show_low_stock">
+                        <button mat-button type="button" (click)="hide_low_stock_tires()">Hide low stock
+                            tires</button>
+                    </ng-template>
+                    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                        formControlName="tire_id_selection">
+                        <mat-radio-button color="primary" [ngClass]="{'gradient-covered' : tire.low_stock}"
+                            class="example-radio-button-2 card-input-element" *ngFor="let tire of displayed_tires"
+                            [value]="tire">
+                            <div class="tire-selection-image"></div>
+                            <div class="tire-card-content-container">
+                                <div class="tire-card-contents">
+                                    <h3>{{tire.article_desc }}</h3>
+                                    <span style="line-height: 0px; font-size: 12px;" class="text-grey">
+                                        {{ tire.type }}</span>
+                                    <br>
+                                    <span class="text-red"><b>${{ tire.cost }}</b></span>
+                                    <ng-template [ngIf]="tire.low_stock">
+                                        <p class="red-text"> Only {{ tire.qoh }} in stock</p>
+                                    </ng-template>
+                                    <ng-template [ngIf]="!tire.low_stock">
+                                        <p class="white-text"> Only {{ tire.qoh }} in stock</p>
+                                    </ng-template>
+                                </div>
+                                <div class="tire-fab-container">
+                                    <button mat-mini-fab (click)="open_tire_info_dialog(tire)"
+                                        class="tire-card-info-btn" style="margin-top: auto;"
+                                        aria-label="Example icon button with a filter list icon">
+                                        <mat-icon>info</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </mat-radio-button>
+                    </mat-radio-group>
+                    <div class="stepper-next">
+                        <button mat-fab color="primary" matStepperPrevious>
+                            <mat-icon>navigate_before</mat-icon>
+                        </button>
+                        &nbsp;
+                        &nbsp;
+                        <button mat-fab color="primary" matStepperNext>
+                            <mat-icon>navigate_next</mat-icon>
+                        </button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <!--------------------------------- EXTRA INFO STEP --------------------------------->
+
+            <mat-step [stepControl]="extra_info_form">
+                <form [formGroup]="extra_info_form">
+                    <ng-template matStepLabel>Details</ng-template>
+                    <h3>Extra Information For Your Order</h3>
+                    <h4>Car Color: {{ final_order.color}} </h4>
+
+                    <div class="example-radio-group color-radio-group">
+                        <label *ngFor="let c of color_options">
+                            <input type="radio" formControlName="color" class="card-input-element" [value]="c.value" />
+                            <div class="card-input" [style.background]="c.hex">
+                            </div>
+                        </label>
+                    </div>
+                    <br>
+                    <br>
+
+                    <h3>License Plate Number</h3>
+                    <p>
+                        <mat-form-field appearance="outline">
+                            <mat-label>License Plate Number</mat-label>
+                            <input matInput placeholder="e.g., 1234567" formControlName="license_number">
+                            <mat-icon matSuffix>looks_one</mat-icon>
+                        </mat-form-field>
+                    </p>
+
+                    <h3>Replacement Date & Time</h3>
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Date</mat-label>
+                        <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="date">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker touchUi #picker></mat-datepicker>
+                    </mat-form-field>
+                    <br>
+                    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                        formControlName="time">
+                        <mat-radio-button color="primary" class="example-radio-button card-input-element"
+                            *ngFor="let time of times_available" [value]="time">
+                            {{time}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+
+                    <h3>Address of Appointment</h3>
+                    <p class="description-text">
+                        Enter the address of the location that you want the appointment done.
+                    </p>
+                    <ng-template [ngIf]="address_error">
+                        <div class="error-container">
+                            <p style="font-size: 12px;">Unfortauntely, we don't serve your area. Try another
+                                location
+                                closer to Arlington, VA.
+                            </p>
+                        </div>
+                    </ng-template>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Address</mat-label>
+                        <input matInput matGoogleMapsAutocomplete [country]="us"
+                            (onAutocompleteSelected)="onAutocompleteSelected($event)"
+                            (onLocationSelected)="onLocationSelected($event)" formControlName="address">
+                        <mat-icon matSuffix>room</mat-icon>
+                    </mat-form-field>
+                    <div class="map-wrap">
+                        <div class="map-div">
+                            <map-box></map-box>
+                        </div>
+                    </div>
+
+
+                    <div class="stepper-next">
+                        <button mat-fab color="primary" matStepperPrevious>
+                            <mat-icon>navigate_before</mat-icon>
+                        </button>
+                        &nbsp;
+                        &nbsp;
+                        <button [disabled]="address_error" mat-fab color="primary" matStepperNext>
+                            <mat-icon>navigate_next</mat-icon>
+                        </button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <!------------------------------------------------------------------------------->
+
+
+
+            <!------------------------------ CONFIRMATION STEP ------------------------------>
+
+            <mat-step>
+                <ng-template matStepLabel>You're Done!</ng-template>
+                <h3>Your Completed Order:</h3>
+                <p>You are now done. Review your results.</p>
+                <mat-list class="order-results-list">
+
+                    <mat-list-item *ngFor="let item of final_page_array">
+                        <mat-icon mat-list-icon>{{item.icon}}</mat-icon>
+                        <div mat-line><b>{{item.key}}</b>: &nbsp;{{item.val}}</div>
+
+                        <mat-divider></mat-divider>
+                    </mat-list-item>
+
+                </mat-list>
+
+                <div>
+                    <button mat-flat-button color="primary" type="button" (click)="go_to_payment()">Proceed To
+                        Payment</button>
+
+                </div>
+            </mat-step>
+
+            <!------------------------------------------------------------------------------->
+
+
+        </mat-horizontal-stepper>
+
+
     </ng-template>
 </div>

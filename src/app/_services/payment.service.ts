@@ -11,4 +11,8 @@ export class PaymentService {
        console.log(data);
         return this.http.post(`${environment.apiUrl}/payments/create_charge`, data)
     }
+
+    getCostAfterMarkup(price) {
+        return this.http.post(`${environment.apiUrl}/payments/get_final_price`, { price: price });
+    }
 }

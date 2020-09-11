@@ -31,7 +31,6 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu'
 import {MatListModule, MatList} from '@angular/material/list';
-import { TireSizeDialogComponent } from './tire-size-dialog/tire-size-dialog.component';
 import { MainFormComponent } from './main-form/main-form.component';
 import { PaymentDialogComponent } from './payment-dialog/payment-dialog.component';
 import { NgxStripeModule } from 'ngx-stripe';
@@ -43,6 +42,7 @@ import { OrderConfirmationComponent } from './order-confirmation/order-confirmat
 import { UserOrdersComponent } from './user-orders/user-orders.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { EditOrderComponent } from './edit-order/edit-order.component';
+import { ContactComponent } from './contact/contact.component';
 
 
 @NgModule({
@@ -51,14 +51,14 @@ import { EditOrderComponent } from './edit-order/edit-order.component';
     HomeComponent,
     AlertComponent,
     MapComponent,
-    TireSizeDialogComponent,
     MainFormComponent,
     PaymentDialogComponent,
     AuthDialogComponent,
     TireInfoDialogComponent,
     OrderConfirmationComponent,
     UserOrdersComponent,
-    EditOrderComponent
+    EditOrderComponent,
+    ContactComponent
     
   ],
   imports: [
@@ -102,7 +102,7 @@ import { EditOrderComponent } from './edit-order/edit-order.component';
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     MatDatepickerModule,
   ],
-  entryComponents: [TireSizeDialogComponent, PaymentDialogComponent, AuthDialogComponent, TireInfoDialogComponent, EditOrderComponent],
+  entryComponents: [PaymentDialogComponent, AuthDialogComponent, TireInfoDialogComponent, EditOrderComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

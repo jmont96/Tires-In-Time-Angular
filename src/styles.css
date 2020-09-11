@@ -46,7 +46,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-
     margin: 24px;
     margin-left: 54px;
     margin-right: 54px;
@@ -57,7 +56,7 @@ body {
     width: 150px;
     height: 50px;
     bottom: 40px;
-    left: 43.3%;
+    left: 45%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -78,6 +77,12 @@ body {
     flex-direction: row;
     justify-content: center;
     align-items: center !important;
+}
+
+.mat-menu-panel {
+    max-width: 400px !important;
+    border-radius: 12px !important;
+    box-shadow: var(--custom-box-shadow2);
 }
 
 .size-form-field-container h2 {
@@ -295,16 +300,18 @@ h2 {
 .form-container-centered {
     text-align: center;
     max-height: 80%;
-    overflow-y: scroll;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
+.form-container-centered h3 {
+    text-align: start;
+}
+
 .form-container-main {
     padding: 84px;
-   
 }
 
 .red-button {
@@ -362,6 +369,7 @@ h2 {
     border-right: none;
     padding: 0px !important;
     line-height: 0px !important;
+    overflow: scroll !important;
 }
 
 .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
@@ -421,6 +429,26 @@ span.price-total {
     color: var(--custom-text-light) !important;
 }
 
+.horizontal-aligned-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.random-red-circle {
+    background: var(--color-primary);
+    height: 12px;
+    width: 12px;
+    display: flex;
+    flex-direction: row;
+    border-radius: 6px;
+    margin: 12px;
+}
+
+.divider {
+    border-top: 2px solid var(--custom-background-light-grey);
+}
+
 .separator {
     display: flex;
     align-items: center;
@@ -447,14 +475,16 @@ span.price-total {
     min-height: 2000px;
 }
 
-@media only screen and (max-width: 600px) {
-    .form-container-centered {
-        margin-left: 12px;
-        margin-right: 12px;
-    }
-    .order-results-list {
-        max-width: 80%;
-    }
+.red-button-full {
+    width: 100%;
+}
+
+.mat-form-field {
+    width: 400px !important;
+}
+
+.form-image {
+    width: 500px;
 }
 
 .example-radio-group {
@@ -558,8 +588,8 @@ span.price-total {
 }
 
 .progress_bar_container {
-    margin-top: 24px; 
-    margin-bottom: 24px; 
+    margin-top: 24px;
+    margin-bottom: 24px;
     width: 100%;
     display: block;
 }
@@ -729,3 +759,137 @@ mat-horizontal-stepper {
 }
 
 /*          **********          */
+
+.segment-button-scroll {
+    overflow: scroll;
+    width: 100%;
+}
+
+.payment-form-grid {
+    width: 400px;
+}
+
+.mat-list-base .mat-list-item .mat-line {
+    white-space: wrap !important;
+}
+
+@media only screen and (max-width: 768px) {
+    .payment-form-grid {
+        width: 68vw;
+    }
+    .tire-selection-image {
+        width: 70px;
+        height: 100px;
+        margin-left: 36px;
+        background-size: cover;
+    }
+    .example-radio-button-2 {
+        height: 280px;
+        width: 75%;
+        box-shadow: var(--custom-box-shadow-short)
+    }
+    .mat-vertical-stepper-content {
+        overflow: visible !important;
+    }
+    .form-container-centered {
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+        padding: 24px;
+    }
+    .form-container-main {
+        overflow: visible;
+        padding: 24px;
+    }
+    .responsive-width {
+        width: 100%;
+    }
+    .red-button-full {
+        width: 100%;
+    }
+    .form-image {
+        width: 75vw;
+    }
+    .mat-form-field {
+        width: 100% !important;
+    }
+    .order-results-list {
+        max-width: 100%;
+    }
+    .mat-vertical-stepper-header {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+    .mat-vertical-content {
+        padding-right: 0px !important;
+    }
+    .size-form-field-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center !important;
+    }
+    .stepper-next {
+        position: fixed !important;
+        width: 150px;
+        height: 50px;
+        bottom: 24px;
+        left: 32%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0, 0, 0, 0);
+        color: var(--custom-text-light);
+        font-weight: 800 !important;
+        border-radius: 12px;
+        text-align: center;
+        z-index: 50;
+    }
+    .choice-grid {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: auto;
+        justify-content: center;
+        width: 100%;
+    }
+    .choice-col {
+        min-height: 50px;
+        min-width: 50px;
+        display: flex;
+        flex-direction: row;
+    }
+    .choice-col mat-checkbox {
+        margin: 12px;
+        margin-bottom: 12px;
+        margin-top: 12px;
+        font-weight: 800;
+        font-size: 12px;
+    }
+    .car-img {
+        width: 65vw;
+    }
+    .mobile-column-override {
+        display: flex;
+        flex-direction: column;
+    }
+    .map-div {
+        width: 100%;
+        height: 250px;
+        position: relative;
+        border-radius: 24px;
+        margin-bottom: 48px;
+        clip-path: inset(0 0 0 0 round 24px 24px 24px 24px);
+    }
+    .container-title h1 {
+        font-size: 42px;
+    }
+    .container-title {
+        margin-top: 24px;
+        display: block;
+        
+    }
+    .schedule-home-button {
+        width: 200px;
+    }
+}
