@@ -13,6 +13,7 @@ export class OrdersService {
     }
 
     get_orders_for_user(id) {
+        console.log("hello");
         return this.http.get<any>(`${environment.apiUrl}/orders/get-for-user/${id}`);
     }
 
@@ -27,7 +28,6 @@ export class OrdersService {
             console.log(x);
             console.log("we did it!");
         });
-       
     }
 
     updateOrder(id, body) {
@@ -37,5 +37,9 @@ export class OrdersService {
 
     delete(id: number) {
         return this.http.delete(`${environment.apiUrl}/orders/${id}`);
+    }
+
+    sendOrderConfirmationEmail(body) {
+        return this.http.post(`${environment.apiUrl}/orders/email-confirmation`, body);
     }
 }

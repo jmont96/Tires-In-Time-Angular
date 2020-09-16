@@ -15,4 +15,5 @@ export class PaymentService {
     getCostAfterMarkup(price) {
         return this.http.post(`${environment.apiUrl}/payments/get_final_price`, { price: price });
     }
+
 }
